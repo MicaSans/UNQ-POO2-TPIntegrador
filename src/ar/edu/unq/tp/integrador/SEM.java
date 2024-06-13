@@ -7,7 +7,6 @@ import java.util.List;
 
 public class SEM {
 	
-	private Integer numeroDeControl;
 	private HashMap<String, EstacionamientoApp> mapCelularConEstacionamiento;
 	private HashMap<String, Integer> mapCelularConCredito;
 	private final LocalDateTime horarioInicio = LocalDateTime.now().with(LocalTime.of(20, 0));
@@ -19,14 +18,6 @@ public class SEM {
 	private List<Infraccion> infracciones;
 	
 	// Getters
-	
-	/**
-	 * 	
-	 * @return devuelve el proximo nro de control???
-	 */
-	public Integer getNumeroDeControl() {
-		return numeroDeControl;
-	}
 	
 	public HashMap<String, EstacionamientoApp> getMapCelularConEstacionamiento() {
 		return mapCelularConEstacionamiento;
@@ -140,8 +131,8 @@ public class SEM {
     }
     
     //TODO preguntar
-	public void registrarCredito(String numeroCelular, Double credito) {
-		
+	public void registrarCredito(String numeroCelular, Integer credito) {
+		this.mapCelularConCredito.put(numeroCelular, credito);
 	};
 	
 	public void finalizarEstacionamientosVigentes() {
@@ -163,7 +154,7 @@ public class SEM {
 	 * Es un método que nos sugirió Butti, para cuando se cree una instancia de EstacionamientoApp,
 	 * supongamos que se llama a este método para ponerle un horario de fin de estacionamiento.
 	 */
-	public void finalizarEstacionamientoDeApp(Integer numeroDeCelular) {
+	public void finalizarEstacionamientoDeApp(String numeroDeCelular) {
 		
 	}
 	
@@ -172,8 +163,10 @@ public class SEM {
 		return false;
 	}
 	
-	public void generarInfraccion(String patente) {
-		
+	public Infraccion generarInfraccion(String patente, Zona unaZona) {
+		Infraccion nuevaInfraccion = new Infraccion(patente, LocalDateTime.now(), unaZona);
+		this.registrarInfraccion(nuevaInfraccion);
+		return nuevaInfraccion;
 	}
 	
 	public Integer informarSaldoDe(String numeroDeCelular) {
