@@ -18,15 +18,17 @@ public class PuntoDeVenta {
 	
 	public CompraPuntual generarCompraPuntual(String unaPatente, Integer unaCantidadDeHoras) {
 		LocalDateTime fechaYHoraActual = LocalDateTime.now();
-		CompraPuntual nuevaCompraPuntual = new CompraPuntual(unaPatente, fechaYHoraActual, unaCantidadDeHoras);
+		CompraPuntual nuevaCompraPuntual = new CompraPuntual(fechaYHoraActual, unaPatente, unaCantidadDeHoras);
 		this.sem.registrarCompra(nuevaCompraPuntual);
 		return nuevaCompraPuntual;
 	}
 	
 	public CompraCelular generarCompraCelular(String unCelular, Integer unImporte) {
-		CompraCelular nuevaCompraCelular = new CompraCelular(unCelular, unImporte);
+		LocalDateTime fechaYHora = LocalDateTime.now();
+		CompraCelular nuevaCompraCelular = new CompraCelular(fechaYHora, unCelular, unImporte);
 		this.sem.registrarCompra(nuevaCompraCelular);
 		this.sem.cargarCreditoDe(unCelular, unImporte);
+		return nuevaCompraCelular;
 	}
 
 }
