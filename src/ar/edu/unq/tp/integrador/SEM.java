@@ -160,7 +160,13 @@ public class SEM {
 	
 	//TODO: Implementar segun requerimiento. Seguramente precise una exepcion.
 	private Boolean tieneEstacionamientoVigente(String patente) {
-		return false;
+		Estacionamiento estacionamiento = null;
+		for(Estacionamiento e : this.estacionamientos) {
+			if(e.getPatente().equals(patente)) {
+				estacionamiento = e;
+			}
+		}
+		return estacionamiento.estaVigente();
 	}
 	
 	public Infraccion generarInfraccion(String patente, Zona unaZona) {

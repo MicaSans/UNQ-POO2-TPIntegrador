@@ -7,6 +7,18 @@ public abstract class Estacionamiento {
 	private LocalDateTime horaInicio;
 	private LocalDateTime horaFin;
 	
+	public Estacionamiento(String patente, LocalDateTime horaInicio) {
+		this.patente = patente;
+		this.horaInicio = horaInicio;
+		this.horaFin = null;
+	}
+	
+	public Estacionamiento(String patente, LocalDateTime horaInicio, LocalDateTime horaFin) {
+		this.patente = patente;
+		this.horaInicio = horaInicio;
+		this.horaFin = horaFin;
+	}
+	
 	public String getPatente() {
 		return this.patente;
 	}
@@ -24,6 +36,6 @@ public abstract class Estacionamiento {
 	}
 	
 	public Boolean estaVigente() {
-		return !horaInicio.isAfter(horaFin);
+		return this.horaFin.isAfter(LocalDateTime.now());
 	}
 }
