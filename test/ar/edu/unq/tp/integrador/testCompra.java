@@ -31,7 +31,23 @@ class testCompra {
 		LocalDateTime horaDeCompra = LocalDateTime.of(LocalDate.now(), LocalTime.of(8, 0));
 		CompraPuntual compraPuntual = new CompraPuntual(horaDeCompra, "DDD999", 4);
 		
-		assertEquals(horaDeCompra, compraPuntual.getCantidadDeHoras());
+		assertEquals(4, compraPuntual.getCantidadDeHoras());
+	}
+	
+	@Test
+	void testGetMontoDeCargaCompraCelular() {
+		LocalDateTime horaDeCompra = LocalDateTime.of(LocalDate.now(), LocalTime.of(8, 0));
+		CompraCelular compraCelular = new CompraCelular(horaDeCompra, "1155531425", 1000);
+		
+		assertEquals(1000, compraCelular.getMontoDeCarga());
+	}
+	
+	@Test
+	void testGetNroDeCelular() {
+		LocalDateTime horaDeCompra = LocalDateTime.of(LocalDate.now(), LocalTime.of(8, 0));
+		CompraCelular compraCelular = new CompraCelular(horaDeCompra, "1155531425", 1000);
+		
+		assertEquals("1155531425", compraCelular.getNumeroDeCelular());
 	}
 
 }
