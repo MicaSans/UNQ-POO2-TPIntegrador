@@ -15,21 +15,25 @@ class ZonaTest {
 	void setUp() throws Exception {
 		sem = new SEM();
 		zona = new Zona(7854, 948632);
-		puntoDeVenta = new PuntoDeVenta("20-30659847-5");
+		puntoDeVenta = new PuntoDeVenta("20-30659847-5", sem);
 	}
 
 	@Test
 	void testRegistrarZona() {
 		//Se testea que la zona se registre correctamente en la lista que tiene el SEM con sus zonas
 		sem.registrarZona(zona);
+		
 		assertEquals(sem.getZonas().size(), 1);
+		assertTrue(sem.getZonas().contains(zona));
 	}
 	
 	@Test
 	void testAgregarPtoDeVenta() {
 		//Se testea que se agregue correctamente un punto de venta a la zona
 		zona.agregarPtoDeVenta(puntoDeVenta);
+		
 		assertEquals(zona.getPuntosDeVenta().size(), 1);
+		assertTrue(zona.getPuntosDeVenta().contains(puntoDeVenta));
 	}
 	
 	@Test
