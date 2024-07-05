@@ -26,5 +26,9 @@ public class Zona {
 	public Integer getIdInspector() {
 		return this.idInspector;
 	}
+	
+	public List<PuntoDeVenta> getPuntosDeVenta(){
+		return puntosDeVenta;
+	}
 
 }
