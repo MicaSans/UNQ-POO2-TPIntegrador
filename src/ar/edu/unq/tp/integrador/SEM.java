@@ -19,12 +19,12 @@ public class SEM {
 	private List<Infraccion> infracciones;
 	
 	public SEM() {
-        this.mapCelularConEstacionamiento = new HashMap<>();
-        this.mapCelularConCredito = new HashMap<>();
-        this.compras = new ArrayList<>();
-        this.estacionamientos = new ArrayList<>();
-        this.zonas = new ArrayList<>();
-        this.infracciones = new ArrayList<>();
+        this.mapCelularConEstacionamiento = new HashMap<String, EstacionamientoApp>();
+        this.mapCelularConCredito = new HashMap<String, Integer>();
+        this.compras = new ArrayList<Compra>();
+        this.estacionamientos = new ArrayList<Estacionamiento>();
+        this.zonas = new ArrayList<Zona>();
+        this.infracciones = new ArrayList<Infraccion>();
     }
 	
 	// Getters
