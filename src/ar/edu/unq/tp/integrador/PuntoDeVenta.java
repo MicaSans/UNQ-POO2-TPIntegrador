@@ -8,8 +8,9 @@ public class PuntoDeVenta {
 	private String cuit;
 	private SEM sem;
 	
-	public PuntoDeVenta(String unCuit) {
+	public PuntoDeVenta(String unCuit, SEM unSem) {
 		this.cuit = unCuit;
+		this.sem = unSem;
 	}
 	
 	public String getCuit() {
