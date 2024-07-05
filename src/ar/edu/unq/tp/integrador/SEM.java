@@ -2,6 +2,7 @@ package ar.edu.unq.tp.integrador;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -16,6 +17,15 @@ public class SEM {
 	private List<Estacionamiento> estacionamientos;
 	private List<Zona> zonas;
 	private List<Infraccion> infracciones;
+	
+	public SEM() {
+        this.mapCelularConEstacionamiento = new HashMap<>();
+        this.mapCelularConCredito = new HashMap<>();
+        this.compras = new ArrayList<>();
+        this.estacionamientos = new ArrayList<>();
+        this.zonas = new ArrayList<>();
+        this.infracciones = new ArrayList<>();
+    }
 	
 	// Getters
 	
