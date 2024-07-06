@@ -11,7 +11,7 @@ public class EstacionamientoApp extends Estacionamiento {
 	}
 	
 	@Override
-	public void finalizar() {
+	public void finalizarEstacionamiento() {
 		if(estaVigente()) {
 			setHoraFin(LocalDateTime.now());
 		}

@@ -39,9 +39,7 @@ public abstract class Estacionamiento {
 		return this.horaFin == null || this.horaFin.isAfter(LocalDateTime.now());
 	}
 	
-	public void finalizar() {
-		if (this.horaFin == null) { //Verifica que ya ha sido finalizado
-			this.horaFin = LocalDateTime.now();
-		}
+	public void finalizarEstacionamiento() {
+		this.setHoraFin(LocalDateTime.now());
 	}
 }

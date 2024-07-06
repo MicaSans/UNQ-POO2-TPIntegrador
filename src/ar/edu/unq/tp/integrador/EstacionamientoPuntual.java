@@ -9,7 +9,7 @@ public class EstacionamientoPuntual extends Estacionamiento {
 	}
 	
 	@Override
-	public void finalizar() {
+	public void finalizarEstacionamiento() {
 		
 	}
 

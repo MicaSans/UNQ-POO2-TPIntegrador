@@ -152,10 +152,9 @@ public class SEM {
 	public void finalizarEstacionamientosVigentes() {
 	//Finaliza todos los estacionamiemtos vigentes.
 		// debería tener una exepción para saber si es la hora fin de estacionamiento medido?
-		LocalDateTime ahora = LocalDateTime.now();
 		for(Estacionamiento estacionamiento : estacionamientos) {
-			if(estacionamiento.estaVigente() && estacionamiento.getHoraFin().isBefore(ahora)) {
-				estacionamiento.finalizar();
+			if(estacionamiento.estaVigente()) {
+				estacionamiento.finalizarEstacionamiento();
 			}
 		}
 	}
