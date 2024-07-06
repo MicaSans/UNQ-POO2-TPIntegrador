@@ -36,6 +36,12 @@ public abstract class Estacionamiento {
 	}
 	
 	public Boolean estaVigente() {
-		return this.horaFin.isAfter(LocalDateTime.now());
+		return this.horaFin == null || this.horaFin.isAfter(LocalDateTime.now());
+	}
+	
+	public void finalizar() {
+		if (this.horaFin == null) { //Verifica que ya ha sido finalizado
+			this.horaFin = LocalDateTime.now();
+		}
 	}
 }

@@ -9,4 +9,11 @@ public class EstacionamientoApp extends Estacionamiento {
 		super(patente, horaInicio);
 		this.numeroDeCelular = nroCelular;
 	}
+	
+	@Override
+	public void finalizar() {
+		if(estaVigente()) {
+			setHoraFin(LocalDateTime.now());
+		}
+	}
 }

@@ -7,5 +7,10 @@ public class EstacionamientoPuntual extends Estacionamiento {
 	public EstacionamientoPuntual(String patente, LocalDateTime horaInicio, LocalDateTime horaFin) {
 		super(patente, horaInicio, horaFin);
 	}
+	
+	@Override
+	public void finalizar() {
+		
+	}
 
 }

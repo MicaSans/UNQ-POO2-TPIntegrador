@@ -117,12 +117,16 @@ public class SEM {
 	}*/
 	
 	private <T> void registrarElemento(List<T> lista, T elemento, String mensajeError) {
-        if (lista.stream().anyMatch(e -> e.equals(elemento))) {
+        if (estaRegistrado(lista, elemento)) {
             throw new IllegalArgumentException(mensajeError);
         } else {
             lista.add(elemento);
         }
     }
+	
+	private <T> boolean estaRegistrado(List<T> lista, T elemento) {
+		return lista.stream().anyMatch(e -> e.equals(elemento));
+	}
 
     public void registrarZona(Zona zona) {
         registrarElemento(zonas, zona, "La zona ya está registrada.");
@@ -146,12 +150,19 @@ public class SEM {
 	};
 	
 	public void finalizarEstacionamientosVigentes() {
-	//TODO: finaliza todos los estacionamiemtos vigentes.
+	//Finaliza todos los estacionamiemtos vigentes.
 		// debería tener una exepción para saber si es la hora fin de estacionamiento medido?
+		LocalDateTime ahora = LocalDateTime.now();
+		for(Estacionamiento estacionamiento : estacionamientos) {
+			if(estacionamiento.estaVigente() && estacionamiento.getHoraFin().isBefore(ahora)) {
+				estacionamiento.finalizar();
+			}
+		}
 	}
 	
 	public void iniciarEstacionamientoApp(String patente, String numeroDeCelular) {
 		//Debería registrar el estacionamiento y envia notificacion?. Leer consignas tp.
+		
 	}
 	
 	public void iniciarEstacionamientoPtoVta(String patente, Integer cantidadDeHoras) {
