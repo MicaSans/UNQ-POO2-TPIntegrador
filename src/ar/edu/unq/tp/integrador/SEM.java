@@ -185,12 +185,18 @@ public class SEM {
 		return nuevaInfraccion;
 	}
 	
-	public Integer informarSaldoDe(Celular numeroDeCelular) {
-		return this.getMapCelularConCredito().get(numeroDeCelular);
+	public Integer informarSaldoDe(String numeroDeCelular) {
+		for(Celular celular : mapCelularConCredito.keySet()) {
+			if(celular.getNroCelular().equals(numeroDeCelular)) {
+				return mapCelularConCredito.get(celular);
+			}
+		}
+		return null; //Retorna null en caso que no se encuentre el numero de celular indicado
 	}
 
-	public void cargarCreditoDe(Celular numeroDeCelular, Integer credito) {
+	public void cargarCreditoDe(Celular celular, Integer credito) {
 		
-		this.getMapCelularConCredito().put(numeroDeCelular, credito);
+		this.getMapCelularConCredito().put(celular, credito);
+		celular.cargarSaldo(credito);
 	}
 }	
