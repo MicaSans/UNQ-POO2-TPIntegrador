@@ -21,7 +21,8 @@ class testCompra {
 	@Test
 	void testGetFechaYHoraCompraCelular() {
 		LocalDateTime horaDeCompra = LocalDateTime.of(LocalDate.now(), LocalTime.of(8, 0));
-		Compra compraCelular = new CompraCelular(horaDeCompra, "1155531425", 1000);
+		Celular celular = new Celular();
+		Compra compraCelular = new CompraCelular(horaDeCompra, celular, 1000);
 		
 		assertEquals(horaDeCompra, compraCelular.getFechaYHora());
 	}
@@ -37,7 +38,8 @@ class testCompra {
 	@Test
 	void testGetMontoDeCargaCompraCelular() {
 		LocalDateTime horaDeCompra = LocalDateTime.of(LocalDate.now(), LocalTime.of(8, 0));
-		CompraCelular compraCelular = new CompraCelular(horaDeCompra, "1155531425", 1000);
+		Celular celular = new Celular();
+		CompraCelular compraCelular = new CompraCelular(horaDeCompra, celular, 1000);
 		
 		assertEquals(1000, compraCelular.getMontoDeCarga());
 	}
@@ -45,9 +47,10 @@ class testCompra {
 	@Test
 	void testGetNroDeCelular() {
 		LocalDateTime horaDeCompra = LocalDateTime.of(LocalDate.now(), LocalTime.of(8, 0));
-		CompraCelular compraCelular = new CompraCelular(horaDeCompra, "1155531425", 1000);
+		Celular celular = new Celular();
+		CompraCelular compraCelular = new CompraCelular(horaDeCompra, celular, 1000);
 		
-		assertEquals("1155531425", compraCelular.getNumeroDeCelular());
+		assertEquals(celular.getNroCelular(), compraCelular.getNumeroDeCelular());
 	}
 
 }

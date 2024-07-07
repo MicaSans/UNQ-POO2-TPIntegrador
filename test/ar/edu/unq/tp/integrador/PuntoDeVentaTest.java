@@ -29,7 +29,7 @@ class PuntoDeVentaTest {
 	
 	@Test
 	void testGenerarCompraCelular() {
-		String celular = "15-5489-7852";
+		Celular celular = new Celular();
 		Integer monto = 200;
 		CompraCelular compraCelular = puntoDeVenta.generarCompraCelular(celular, monto);
 		

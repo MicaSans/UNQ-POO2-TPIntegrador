@@ -4,19 +4,19 @@ import java.time.LocalDateTime;
 
 public class CompraCelular extends Compra {
 	private Integer montoDeCarga;
-	private Celular numeroDeCelular;
+	private String numeroDeCelular;
 	
 	public CompraCelular(LocalDateTime fecYHr, Celular nroCel, Integer montoCarga) {
 		super(fecYHr);
 		this.montoDeCarga = montoCarga;
-		this.numeroDeCelular = nroCel;
+		this.numeroDeCelular = nroCel.getNroCelular();
 	}
 	
 	public Integer getMontoDeCarga() {
 		return this.montoDeCarga;
 	}
 	
-	public Celular getNumeroDeCelular() {
+	public String getNumeroDeCelular() {
 		return this.numeroDeCelular;
 	}
 	
