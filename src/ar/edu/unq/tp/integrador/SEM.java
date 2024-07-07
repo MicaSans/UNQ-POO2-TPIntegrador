@@ -8,8 +8,8 @@ import java.util.List;
 
 public class SEM {
 	
-	private HashMap<String, EstacionamientoApp> mapCelularConEstacionamiento;
-	private HashMap<String, Integer> mapCelularConCredito;
+	private HashMap<Celular, EstacionamientoApp> mapCelularConEstacionamiento;
+	private HashMap<Celular, Integer> mapCelularConCredito;
 	private final LocalDateTime horarioInicio = LocalDateTime.now().with(LocalTime.of(20, 0));
 	private final LocalDateTime horarioFin = LocalDateTime.now().with(LocalTime.of(7, 0));
 	private final Integer precioPorHora = 40;
@@ -19,8 +19,8 @@ public class SEM {
 	private List<Infraccion> infracciones;
 	
 	public SEM() {
-        this.mapCelularConEstacionamiento = new HashMap<String, EstacionamientoApp>();
-        this.mapCelularConCredito = new HashMap<String, Integer>();
+        this.mapCelularConEstacionamiento = new HashMap<Celular, EstacionamientoApp>();
+        this.mapCelularConCredito = new HashMap<Celular, Integer>();
         this.compras = new ArrayList<Compra>();
         this.estacionamientos = new ArrayList<Estacionamiento>();
         this.zonas = new ArrayList<Zona>();
@@ -29,15 +29,15 @@ public class SEM {
 	
 	// Getters
 	
-	public HashMap<String, EstacionamientoApp> getMapCelularConEstacionamiento() {
+	public HashMap<Celular, EstacionamientoApp> getMapCelularConEstacionamiento() {
 		return mapCelularConEstacionamiento;
 	}
 	
-	public HashMap<String, Integer> getMapCelularConCredito() {
+	public HashMap<Celular, Integer> getMapCelularConCredito() {
 		return mapCelularConCredito;
 	}
 
-	public void setMapCelularConCredito(HashMap<String, Integer> mapCelularConCredito) {
+	public void setMapCelularConCredito(HashMap<Celular, Integer> mapCelularConCredito) {
 		this.mapCelularConCredito = mapCelularConCredito;
 	}
 
@@ -141,7 +141,7 @@ public class SEM {
     }
     
     //TODO preguntar
-	public void registrarCredito(String numeroCelular, Integer credito) {
+	public void registrarCredito(Celular numeroCelular, Integer credito) {
 		this.mapCelularConCredito.put(numeroCelular, credito);
 	};
 	
@@ -185,11 +185,11 @@ public class SEM {
 		return nuevaInfraccion;
 	}
 	
-	public Integer informarSaldoDe(String numeroDeCelular) {
+	public Integer informarSaldoDe(Celular numeroDeCelular) {
 		return this.getMapCelularConCredito().get(numeroDeCelular);
 	}
 
-	public void cargarCreditoDe(String numeroDeCelular, Integer credito) {
+	public void cargarCreditoDe(Celular numeroDeCelular, Integer credito) {
 		
 		this.getMapCelularConCredito().put(numeroDeCelular, credito);
 	}
