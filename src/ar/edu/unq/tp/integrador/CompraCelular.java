@@ -4,9 +4,9 @@ import java.time.LocalDateTime;
 
 public class CompraCelular extends Compra {
 	private Integer montoDeCarga;
-	private String numeroDeCelular;
+	private Celular numeroDeCelular;
 	
-	public CompraCelular(LocalDateTime fecYHr, String nroCel, Integer montoCarga) {
+	public CompraCelular(LocalDateTime fecYHr, Celular nroCel, Integer montoCarga) {
 		super(fecYHr);
 		this.montoDeCarga = montoCarga;
 		this.numeroDeCelular = nroCel;
@@ -16,7 +16,7 @@ public class CompraCelular extends Compra {
 		return this.montoDeCarga;
 	}
 	
-	public String getNumeroDeCelular() {
+	public Celular getNumeroDeCelular() {
 		return this.numeroDeCelular;
 	}
 	

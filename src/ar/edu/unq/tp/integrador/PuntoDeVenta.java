@@ -1,7 +1,6 @@
 package ar.edu.unq.tp.integrador;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 public class PuntoDeVenta {
 	
@@ -24,7 +23,7 @@ public class PuntoDeVenta {
 		return nuevaCompraPuntual;
 	}
 	
-	public CompraCelular generarCompraCelular(String unCelular, Integer unImporte) {
+	public CompraCelular generarCompraCelular(Celular unCelular, Integer unImporte) {
 		LocalDateTime fechaYHora = LocalDateTime.now();
 		CompraCelular nuevaCompraCelular = new CompraCelular(fechaYHora, unCelular, unImporte);
 		this.sem.registrarCompra(nuevaCompraCelular);
