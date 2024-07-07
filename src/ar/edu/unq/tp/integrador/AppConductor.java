@@ -18,7 +18,7 @@ public class AppConductor implements MovementSensor{
 	*  Hace referencia al número de télefono que tiene asociado el usuario.
 	*  Es de tipo String.
 	*/
-	private String numeroDeCelular;
+	private Celular celular;
 	
 	/* Declaración e inicialización del colaborador interno "modo".
 	 * Es una interfaz del tipo IModo.
@@ -46,11 +46,7 @@ public class AppConductor implements MovementSensor{
 	}
 
 	public String getNumeroDeCelular() {
-		return numeroDeCelular;
-	}
-
-	private void setNumeroDeCelular(String numeroDeCelular) {
-		this.numeroDeCelular = numeroDeCelular;
+		return this.celular.getNroCelular();
 	}
 
 	public IModo getModo() {
@@ -74,10 +70,10 @@ public class AppConductor implements MovementSensor{
 	 * @param sem El SEM con el cual se comunica la appConductor.
 	 * @param numeroDeCelular El número de celular que tiene registrada la appConductor.
 	 */
-	public AppConductor(SEM sem, String numeroDeCelular) {
+	public AppConductor(SEM sem, Celular celular) {
 		super();
 		this.setSem(sem);
-		this.setNumeroDeCelular(numeroDeCelular);
+		this.celular = celular;
 		this.setModo(this.getModo());
 		this.setGps(this.getGps());
 	}
@@ -141,7 +137,7 @@ public class AppConductor implements MovementSensor{
 	
 	//TODO: según el enunciado, el Punto de Venta debería encargarse de la carga de crédito?
 	public void cargarCredito(Integer credito) {
-		this.getSem().cargarCreditoDe(this.getNumeroDeCelular(), credito);
+		this.getSem().cargarCreditoDe(this.celular, credito);
 	}
 }
 
