@@ -50,6 +50,7 @@ public class SEM {
 	}
 	
 	public Integer getPrecioPorHora() {
+		//Se obtiene el precio por hora de estacionamiento (actualmente $40.-)
 		return precioPorHora;
 	}
 	
@@ -62,10 +63,12 @@ public class SEM {
 	}
 	
 	public List<Zona> getZonas() {
+		//Se obtiene la lista con las zonas registradas en el SEM
 		return zonas;
 	}
 	
 	public List<Infraccion> getInfracciones() {
+		//Se obtiene la lista con las infracciones registradas en el SEM
 		return infracciones;
 	}
 	
@@ -128,6 +131,7 @@ public class SEM {
     }
 
     public void registrarZona(Zona zona) {
+    	//Se registra la zona dada a la lista de zonas del SEM y en caso que ya esté registrada se lanza una excepción
         registrarElemento(zonas, zona, "La zona ya está registrada.");
     }
 
@@ -140,7 +144,8 @@ public class SEM {
     }
     
     public void registrarInfraccion(Infraccion infraccion) {
-        registrarElemento(infracciones, infraccion, "La infracción ya está registrado.");
+    	//Se registra la infracción dada a la lista de infracciones del SEM y en caso que ya esté registrada se lanza una excepción
+        registrarElemento(infracciones, infraccion, "La infracción ya está registrada.");
     }
     
     //TODO preguntar
@@ -182,6 +187,7 @@ public class SEM {
 	}
 	
 	public Infraccion generarInfraccion(String patente, Zona zona) {
+		//Se genera una nueva infracción, registrándola en la lista de infracciones
 		Infraccion nuevaInfraccion = new Infraccion(patente, LocalDateTime.now(), zona);
 		this.registrarInfraccion(nuevaInfraccion);
 		return nuevaInfraccion;
