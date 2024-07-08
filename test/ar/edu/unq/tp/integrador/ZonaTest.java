@@ -1,30 +1,21 @@
 package ar.edu.unq.tp.integrador;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 
 class ZonaTest {
 
-	private SEM sem;
-	private Zona zona;
-	private PuntoDeVenta puntoDeVenta;
+	Zona zona;
+	@Mock PuntoDeVenta puntoDeVenta;
 	
 	@BeforeEach
 	void setUp() throws Exception {
-		sem = new SEM();
 		zona = new Zona(7854, 948632);
-		puntoDeVenta = new PuntoDeVenta("20-30659847-5", sem);
-	}
-
-	@Test
-	void testRegistrarZona() {
-		//Se testea que la zona se registre correctamente en la lista que tiene el SEM con sus zonas
-		sem.registrarZona(zona);
-		
-		assertEquals(sem.getZonas().size(), 1);
-		assertTrue(sem.getZonas().contains(zona));
+		puntoDeVenta = mock(PuntoDeVenta.class);
 	}
 	
 	@Test
@@ -37,13 +28,28 @@ class ZonaTest {
 	}
 	
 	@Test
-	void testIdZona() {
+	void testGetIdZona() {
+		//Se testea que se obtenga el IdZona correcto
 		assertEquals(zona.getIdZona(), 7854);
 	}
 	
 	@Test
-	void testIdInspector() {
+	void testGetIdInspector() {
+		//Se testea que se obtenga el IdInspector correcto
 		assertEquals(zona.getIdInspector(), 948632);
 	}
 
+	@Test
+	void testGetPuntosDeVenta() {
+		//Se testea que se obtenga la lista de puntos de venta con los que agregue correctamente
+		assertEquals(zona.getPuntosDeVenta().size(), 0);
+		
+		zona.agregarPtoDeVenta(puntoDeVenta);
+		PuntoDeVenta otroPuntoDeVenta = mock(PuntoDeVenta.class);
+		zona.agregarPtoDeVenta(otroPuntoDeVenta);
+		
+		assertEquals(zona.getPuntosDeVenta().size(), 2);
+		assertTrue(zona.getPuntosDeVenta().contains(puntoDeVenta));
+		assertTrue(zona.getPuntosDeVenta().contains(otroPuntoDeVenta));
+	}
 }
