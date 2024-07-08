@@ -171,7 +171,6 @@ public class SEM {
 		
 	}
 	
-	//TODO: Implementar segun requerimiento. Seguramente precise una exepcion.
 	private Boolean tieneEstacionamientoVigente(String patente) {
 		Estacionamiento estacionamiento = null;
 		for(Estacionamiento e : this.getEstacionamientos()) {
@@ -182,8 +181,8 @@ public class SEM {
 		return estacionamiento.estaVigente();
 	}
 	
-	public Infraccion generarInfraccion(String patente, Zona unaZona) {
-		Infraccion nuevaInfraccion = new Infraccion(patente, LocalDateTime.now(), unaZona);
+	public Infraccion generarInfraccion(String patente, Zona zona) {
+		Infraccion nuevaInfraccion = new Infraccion(patente, LocalDateTime.now(), zona);
 		this.registrarInfraccion(nuevaInfraccion);
 		return nuevaInfraccion;
 	}
@@ -194,7 +193,8 @@ public class SEM {
 				return mapCelularConCredito.get(celular);
 			}
 		}
-		return null; //Retorna null en caso que no se encuentre el numero de celular indicado
+		//Retorna null en caso que no se encuentre el numero de celular indicado
+		return null;
 	}
 
 	public void cargarCreditoDe(Celular celular, Integer credito) {

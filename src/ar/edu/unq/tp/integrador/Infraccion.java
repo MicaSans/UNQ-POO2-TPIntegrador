@@ -8,10 +8,10 @@ public class Infraccion {
 	private LocalDateTime fechaYHora;
 	private Zona zona;
 	
-	public Infraccion(String unaPatente, LocalDateTime unaFechaYHora, Zona unaZona) {
-		this.setPatente(unaPatente);
-		this.setFechaYHora(unaFechaYHora);
-		this.setZona(unaZona);
+	public Infraccion(String patente, LocalDateTime fechaYHora, Zona zona) {
+		this.patente = patente;
+		this.fechaYHora = fechaYHora;
+		this.zona = zona;
 	}
 
 	//Getters y setters
