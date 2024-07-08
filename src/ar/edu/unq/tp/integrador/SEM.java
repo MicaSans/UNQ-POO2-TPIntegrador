@@ -44,12 +44,15 @@ public class SEM {
 	public LocalDateTime getHorarioInicio() {
 		return horarioInicio;
 	}
+	
 	public LocalDateTime getHorarioFin() {
 		return horarioFin;
 	}
+	
 	public Integer getPrecioPorHora() {
 		return precioPorHora;
 	}
+	
 	public List<Compra> getCompras() {
 		return compras;
 	}
@@ -143,7 +146,7 @@ public class SEM {
     //TODO preguntar
 	public void registrarCredito(Celular numeroCelular, Integer credito) {
 		this.mapCelularConCredito.put(numeroCelular, credito);
-	};
+	}
 	
 	public void finalizarEstacionamientosVigentes() {
 	//TODO: finaliza todos los estacionamiemtos vigentes.
@@ -171,7 +174,7 @@ public class SEM {
 	//TODO: Implementar segun requerimiento. Seguramente precise una exepcion.
 	private Boolean tieneEstacionamientoVigente(String patente) {
 		Estacionamiento estacionamiento = null;
-		for(Estacionamiento e : this.estacionamientos) {
+		for(Estacionamiento e : this.getEstacionamientos()) {
 			if(e.getPatente().equals(patente)) {
 				estacionamiento = e;
 			}
@@ -195,7 +198,6 @@ public class SEM {
 	}
 
 	public void cargarCreditoDe(Celular celular, Integer credito) {
-		
 		this.getMapCelularConCredito().put(celular, credito);
 		celular.cargarSaldo(credito);
 	}

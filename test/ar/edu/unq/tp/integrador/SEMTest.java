@@ -8,7 +8,10 @@ import org.junit.jupiter.api.Test;
 class SEMTest {
 	
 	private SEM sem;
-	
+	private Celular celular;
+	private Infraccion infraccion;
+	private Zona zona;
+	private PuntoDeVenta puntoDeVenta;
 
 	@BeforeEach
 	void setUp() throws Exception {
