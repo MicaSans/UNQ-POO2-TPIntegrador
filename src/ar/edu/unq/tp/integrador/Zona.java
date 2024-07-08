@@ -9,14 +9,14 @@ public class Zona {
 	private Integer idInspector;
 	private List<PuntoDeVenta> puntosDeVenta;
 	
-	public Zona(Integer unIdZona, Integer unIdInspector) {
-		this.idZona = unIdZona;
-		this.idInspector = unIdInspector;
+	public Zona(Integer idZona, Integer idInspector) {
+		this.idZona = idZona;
+		this.idInspector = idInspector;
 		this.puntosDeVenta = new ArrayList<PuntoDeVenta>();
 	}
 	
-	public void agregarPtoDeVenta(PuntoDeVenta unPuntoDeVenta) {
-		this.puntosDeVenta.add(unPuntoDeVenta);
+	public void agregarPtoDeVenta(PuntoDeVenta puntoDeVenta) {
+		this.puntosDeVenta.add(puntoDeVenta);
 	}
 	
 	public Integer getIdZona() {
@@ -30,5 +30,4 @@ public class Zona {
 	public List<PuntoDeVenta> getPuntosDeVenta(){
 		return puntosDeVenta;
 	}
-
 }

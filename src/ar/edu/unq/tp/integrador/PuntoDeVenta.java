@@ -7,28 +7,27 @@ public class PuntoDeVenta {
 	private String cuit;
 	private SEM sem;
 	
-	public PuntoDeVenta(String unCuit, SEM unSem) {
-		this.cuit = unCuit;
-		this.sem = unSem;
+	public PuntoDeVenta(String cuit, SEM sem) {
+		this.cuit = cuit;
+		this.sem = sem;
 	}
 	
 	public String getCuit() {
 		return this.cuit;
 	}
 	
-	public CompraPuntual generarCompraPuntual(String unaPatente, Integer unaCantidadDeHoras) {
-		LocalDateTime fechaYHoraActual = LocalDateTime.now();
-		CompraPuntual nuevaCompraPuntual = new CompraPuntual(fechaYHoraActual, unaPatente, unaCantidadDeHoras);
+	public CompraPuntual generarCompraPuntual(String patente, Integer cantHoras) {
+		LocalDateTime fechaYHora = LocalDateTime.now();
+		CompraPuntual nuevaCompraPuntual = new CompraPuntual(fechaYHora, patente, cantHoras);
 		this.sem.registrarCompra(nuevaCompraPuntual);
 		return nuevaCompraPuntual;
 	}
 	
-	public CompraCelular generarCompraCelular(Celular unCelular, Integer unImporte) {
+	public CompraCelular generarCompraCelular(Celular celular, Integer monto) {
 		LocalDateTime fechaYHora = LocalDateTime.now();
-		CompraCelular nuevaCompraCelular = new CompraCelular(fechaYHora, unCelular, unImporte);
+		CompraCelular nuevaCompraCelular = new CompraCelular(fechaYHora, celular, monto);
 		this.sem.registrarCompra(nuevaCompraCelular);
-		this.sem.cargarCreditoDe(unCelular, unImporte);
+		this.sem.cargarCreditoDe(celular, monto);
 		return nuevaCompraCelular;
 	}
-
 }
