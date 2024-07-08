@@ -31,7 +31,7 @@ class EstacionamientoTest {
 	void testNoEstaVigenteEstacionamientoApp() {
 		LocalDateTime horaInicio = LocalDateTime.of(LocalDate.now(), LocalTime.of(8, 0));
 		Estacionamiento estacionamiento = new EstacionamientoApp(celular, "DDD999", horaInicio);
-		celular.cargarSaldo(40); //le alcanzaría solo para 1 hora por lo que podría pagar hasta las 9 a.m.
+		when(celular.getSaldo()).thenReturn(40);
 		assertFalse(estacionamiento.estaVigente());
 	}
 	
