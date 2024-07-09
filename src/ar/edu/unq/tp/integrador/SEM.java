@@ -8,8 +8,8 @@ import java.util.List;
 
 public class SEM {
 	
-	private final LocalDateTime horarioInicio = LocalDateTime.now().with(LocalTime.of(20, 0));
-	private final LocalDateTime horarioFin = LocalDateTime.now().with(LocalTime.of(7, 0));
+	private final LocalTime horaInicioEstacionamientoMedido = LocalTime.of(07, 0);
+	private final LocalTime horaFinEstacionamientoMedido = LocalTime.of(20, 0);
 	private final Integer precioPorHora = 40;
 	private List<Compra> compras;
 	private List<Estacionamiento> estacionamientos;
@@ -25,16 +25,14 @@ public class SEM {
         this.suscriptoresDeAlertas = new ArrayList<Alertable>();
     }
 	
-	
-	
 	// Getters
 
-	public LocalDateTime getHorarioInicio() {
-		return horarioInicio;
+	public LocalTime getHoraInicioEstacionamientoMedido() {
+		return horaInicioEstacionamientoMedido;
 	}
 	
-	public LocalDateTime getHorarioFin() {
-		return horarioFin;
+	public LocalTime getHoraFinEstacionamientoMedido() {
+		return horaFinEstacionamientoMedido;
 	}
 	
 	public Integer getPrecioPorHora() {
@@ -144,12 +142,22 @@ public class SEM {
 		// debería tener una exepción para saber si es la hora fin de estacionamiento medido?
 	}
 	
-	public void iniciarEstacionamiento(String patente, Celular celular) {
+	public String iniciarEstacionamiento(String patente, Celular celular) {
 		if (this.tieneCreditoSuficiente(celular)) {
-			
+			LocalDateTime horaInicio = LocalDateTime.now();
+			Estacionamiento estacionamiento = new EstacionamientoApp(celular, patente, horaInicio);
+			this.registrarEstacionamiento(estacionamiento);
+			this.alertarInicioEstacionamiento();
+			return "Hora inicio: " + horaInicio + " Hora máxima de fin: " + this.maxHoraFinQuePuedeAbonar(celular, horaInicio);
 		}else {
 			throw new IllegalArgumentException("No tiene saldo suficiente para iniciar el estacionamiento.");
 		}
+	}
+	
+	private LocalTime maxHoraFinQuePuedeAbonar(Celular celular, LocalDateTime horaInicio) {
+		int maxCantHorasSegunSaldo = celular.getSaldo() / this.getPrecioPorHora();
+		LocalDateTime maxHoraDeFin = horaInicio.plusHours(maxCantHorasSegunSaldo);
+		return maxHoraDeFin.toLocalTime();
 	}
 	
 	private Boolean tieneCreditoSuficiente(Celular celular) {
