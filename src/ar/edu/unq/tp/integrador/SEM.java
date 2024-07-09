@@ -153,9 +153,18 @@ public class SEM {
 		// debería tener una exepción para saber si es la hora fin de estacionamiento medido?
 	}
 	
-	public void iniciarEstacionamientoApp(String patente, String numeroDeCelular) {
-		//Debería registrar el estacionamiento y envia notificacion?. Leer consignas tp.
+	public void iniciarEstacionamiento(String patente, Celular celular) {
+		if (this.tieneCreditoSuficiente(celular)) {
+			
+		}else {
+			throw new IllegalArgumentException("No tiene saldo suficiente para iniciar el estacionamiento.");
+		}
 	}
+	
+	private Boolean tieneCreditoSuficiente(Celular celular) {
+		return celular.getSaldo() >= this.getPrecioPorHora();
+	}
+	
 	
 	public void iniciarEstacionamientoPtoVta(String patente, Integer cantidadDeHoras) {
 		//Leer consignas tp.
