@@ -91,27 +91,12 @@ public class AppConductor implements MovementSensor{
 		// modo.ejecutarEnVehiculo();
 	}
 	
-	//TODO: esta bien? hace pasamano.
 	public void iniciarEstacionamiento(String patente) {
-		if (this.tieneCreditoSuficiente(40)) {
-			this.sem.iniciarEstacionamientoApp(patente, this.getNumeroDeCelular()); //Acá el SEM debería generar la instancia del estacionamiento app?? 
-		}else {
-			throw new IllegalArgumentException("No tiene saldo suficiente para iniciar el estacionamiento.");
-		}
-	}
-	
-	private Boolean tieneCreditoSuficiente(Integer creditoMinimo) {
-		return this.consultarSaldo() >= creditoMinimo;
 	}
 
 	//TODO: implementar
 	public void finalizarEstacionamiento(String numeroDeCelular) {
 		
-	}
-	
-	//TODO: preguntar al SEM por el saldo que tiene este numero de cel?
-	public Integer consultarSaldo() {
-		return this.getSem().informarSaldoDe(this.getNumeroDeCelular());
 	}
 	
 	//TODO: que hace este metodo? Leer las consignas.
@@ -135,9 +120,5 @@ public class AppConductor implements MovementSensor{
 		}
 	}
 	
-	//TODO: según el enunciado, el Punto de Venta debería encargarse de la carga de crédito?
-	public void cargarCredito(Integer credito) {
-		this.getSem().cargarCreditoDe(this.celular, credito);
-	}
 }
 
