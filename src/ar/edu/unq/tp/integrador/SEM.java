@@ -8,8 +8,6 @@ import java.util.List;
 
 public class SEM {
 	
-	private HashMap<Celular, EstacionamientoApp> mapCelularConEstacionamiento;
-	private HashMap<Celular, Integer> mapCelularConCredito;
 	private final LocalDateTime horarioInicio = LocalDateTime.now().with(LocalTime.of(20, 0));
 	private final LocalDateTime horarioFin = LocalDateTime.now().with(LocalTime.of(7, 0));
 	private final Integer precioPorHora = 40;
@@ -17,29 +15,19 @@ public class SEM {
 	private List<Estacionamiento> estacionamientos;
 	private List<Zona> zonas;
 	private List<Infraccion> infracciones;
+	private List<Alertable> suscriptoresDeAlertas;
 	
 	public SEM() {
-        this.mapCelularConEstacionamiento = new HashMap<Celular, EstacionamientoApp>();
-        this.mapCelularConCredito = new HashMap<Celular, Integer>();
         this.compras = new ArrayList<Compra>();
         this.estacionamientos = new ArrayList<Estacionamiento>();
         this.zonas = new ArrayList<Zona>();
         this.infracciones = new ArrayList<Infraccion>();
+        this.suscriptoresDeAlertas = new ArrayList<Alertable>();
     }
 	
+	
+	
 	// Getters
-	
-	public HashMap<Celular, EstacionamientoApp> getMapCelularConEstacionamiento() {
-		return mapCelularConEstacionamiento;
-	}
-	
-	public HashMap<Celular, Integer> getMapCelularConCredito() {
-		return mapCelularConCredito;
-	}
-
-	public void setMapCelularConCredito(HashMap<Celular, Integer> mapCelularConCredito) {
-		this.mapCelularConCredito = mapCelularConCredito;
-	}
 
 	public LocalDateTime getHorarioInicio() {
 		return horarioInicio;
@@ -148,9 +136,7 @@ public class SEM {
         registrarElemento(infracciones, infraccion, "La infracción ya está registrada.");
     }
     
-    //TODO preguntar
 	public void registrarCredito(Celular numeroCelular, Integer credito) {
-		this.mapCelularConCredito.put(numeroCelular, credito);
 	}
 	
 	public void finalizarEstacionamientosVigentes() {
@@ -202,18 +188,19 @@ public class SEM {
 		return nuevaInfraccion;
 	}
 	
-	public Integer informarSaldoDe(String numeroDeCelular) {
-		for(Celular celular : mapCelularConCredito.keySet()) {
-			if(celular.getNroCelular().equals(numeroDeCelular)) {
-				return mapCelularConCredito.get(celular);
-			}
-		}
-		//Retorna null en caso que no se encuentre el numero de celular indicado
-		return null;
+	public void addSuscriptorDeAlerta(Alertable suscriptor) {
+		this.suscriptoresDeAlertas.add(suscriptor);
 	}
-
-	public void cargarCreditoDe(Celular celular, Integer credito) {
-		this.getMapCelularConCredito().put(celular, credito);
-		celular.cargarSaldo(credito);
+	
+	public void removeSuscriptorDeAlerta(Alertable suscriptor) {
+		this.suscriptoresDeAlertas.remove(suscriptor);
+	}
+	
+	private void alertarInicioEstacionamiento() {
+		suscriptoresDeAlertas.stream().forEach(s -> s.inicioEstacionamiento());
+	}
+	
+	private void alertarFinEstacionamiento() {
+		suscriptoresDeAlertas.stream().forEach(s -> s.finEstacionamiento());
 	}
 }	

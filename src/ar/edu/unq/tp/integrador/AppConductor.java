@@ -99,20 +99,7 @@ public class AppConductor implements MovementSensor{
 		this.sem.iniciarEstacionamiento(patente, this.getCelular()); 
 	}
 	
-	
-
-	//TODO: implementar
 	public void finalizarEstacionamiento(String numeroDeCelular) {
-		
-	}
-	
-	//TODO: preguntar al SEM por el saldo que tiene este numero de cel?
-	public Integer consultarSaldo() {
-		return this.getSem().informarSaldoDe(this.getNumeroDeCelular());
-	}
-	
-	//TODO: que hace este metodo? Leer las consignas.
-	public void recibirInformacion() {
 		
 	}
 	
@@ -132,9 +119,5 @@ public class AppConductor implements MovementSensor{
 		}
 	}
 	
-	//TODO: según el enunciado, el Punto de Venta debería encargarse de la carga de crédito?
-	public void cargarCredito(Integer credito) {
-		this.getSem().cargarCreditoDe(this.celular, credito);
-	}
 }
 

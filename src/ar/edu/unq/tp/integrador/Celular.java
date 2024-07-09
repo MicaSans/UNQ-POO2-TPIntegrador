@@ -32,7 +32,7 @@ public class Celular {
 		return this.nroCelular;
 	}
 
-	public void cargarSaldo(int montoCarga) {
+	public void cargarSaldo(Integer montoCarga) {
 		this.saldo += montoCarga;
 	}
 	

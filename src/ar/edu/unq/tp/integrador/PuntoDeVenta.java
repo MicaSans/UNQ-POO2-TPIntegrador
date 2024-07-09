@@ -27,7 +27,7 @@ public class PuntoDeVenta {
 		LocalDateTime fechaYHora = LocalDateTime.now();
 		CompraCelular nuevaCompraCelular = new CompraCelular(fechaYHora, celular, monto);
 		this.sem.registrarCompra(nuevaCompraCelular);
-		this.sem.cargarCreditoDe(celular, monto);
+		celular.cargarSaldo(monto);
 		return nuevaCompraCelular;
 	}
 }
