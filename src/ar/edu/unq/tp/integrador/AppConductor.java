@@ -48,6 +48,10 @@ public class AppConductor implements MovementSensor{
 	public String getNumeroDeCelular() {
 		return this.celular.getNroCelular();
 	}
+	
+	public Celular getCelular() {
+		return this.celular;
+	}
 
 	public IModo getModo() {
 		return modo;
@@ -91,18 +95,11 @@ public class AppConductor implements MovementSensor{
 		// modo.ejecutarEnVehiculo();
 	}
 	
-	//TODO: esta bien? hace pasamano.
 	public void iniciarEstacionamiento(String patente) {
-		if (this.tieneCreditoSuficiente(40)) {
-			this.sem.iniciarEstacionamientoApp(patente, this.getNumeroDeCelular()); //Acá el SEM debería generar la instancia del estacionamiento app?? 
-		}else {
-			throw new IllegalArgumentException("No tiene saldo suficiente para iniciar el estacionamiento.");
-		}
+		this.sem.iniciarEstacionamiento(patente, this.getCelular()); 
 	}
 	
-	private Boolean tieneCreditoSuficiente(Integer creditoMinimo) {
-		return this.consultarSaldo() >= creditoMinimo;
-	}
+	
 
 	//TODO: implementar
 	public void finalizarEstacionamiento(String numeroDeCelular) {
