@@ -8,7 +8,7 @@ import java.time.LocalTime;
 
 import org.junit.jupiter.api.Test;
 
-class testCompra {
+class CompraTest {
 
 	@Test
 	void testGetFechaYHoraCompraPuntual() {
