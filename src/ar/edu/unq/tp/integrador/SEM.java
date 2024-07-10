@@ -3,7 +3,6 @@ package ar.edu.unq.tp.integrador;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class SEM {
@@ -25,10 +24,6 @@ public class SEM {
         this.suscriptoresDeAlertas = new ArrayList<Alertable>();
     }
 	
-	
-	
-	// Getters
-
 	public LocalDateTime getHorarioInicio() {
 		return horarioInicio;
 	}
@@ -60,56 +55,6 @@ public class SEM {
 		return infracciones;
 	}
 	
-	// TODO codigo repetido en el registro de zona, estacionamiento, compra e infraccion
-	/*
-	public void registrarZona(Zona zona) {
-		if (!this.estaLaZonaRegistrada(zona)) {
-			zonas.add(zona);
-		}else {
-			throw new IllegalArgumentException("La zona ya está registrada.");
-		}
-			
-	}
-
-	private Boolean estaLaZonaRegistrada(Zona zona) {
-		return zonas.stream().anyMatch(z -> z.equals(zona));
-	}
-	
-	public void registrarCompra(Compra compra) {
-		if (!this.estaLaCompraRegistrada(compra)) {
-			compras.add(compra);
-		}else {
-			throw new IllegalArgumentException("La compra ya está registrada.");
-		}
-	}
-
-	private Boolean estaLaCompraRegistrada(Compra compra) {
-		return compras.stream().anyMatch(c -> c.equals(compra));
-	}
-	
-	private void registrarEstacionamiento(Estacionamiento estacionamiento) {
-		if (!this.estaElEstacionamientoRegistrado(estacionamiento)) {
-			estacionamientos.add(estacionamiento);
-		}else {
-			throw new IllegalArgumentException("El estacionamiento ya está registrada.");
-		}
-	}
-
-	private Boolean estaElEstacionamientoRegistrado(Estacionamiento estacionamiento) {
-		return estacionamientos.stream().anyMatch(e -> e.equals(estacionamiento));
-	}
-	private void registrarInfraccion(Infraccion infraccion) {
-		if (!this.estaLaInfraccionRegistrada(infraccion)) {
-			infracciones.add(infraccion);
-		}else {
-			throw new IllegalArgumentException("La infraccion ya está registrada.");
-		}
-	}
-
-	private boolean estaLaInfraccionRegistrada(Infraccion infraccion) {
-		return infracciones.stream().anyMatch(i -> i.equals(infraccion));
-	}*/
-	
 	private <T> void registrarElemento(List<T> lista, T elemento, String mensajeError) {
         if (lista.stream().anyMatch(e -> e.equals(elemento))) {
             throw new IllegalArgumentException(mensajeError);
@@ -136,12 +81,12 @@ public class SEM {
         registrarElemento(infracciones, infraccion, "La infracción ya está registrada.");
     }
     
-	public void registrarCredito(Celular numeroCelular, Integer credito) {
+	public void registrarCredito(Celular celular, Integer credito) {
+		celular.cargarSaldo(credito);
 	}
 	
 	public void finalizarEstacionamientosVigentes() {
-	//TODO: finaliza todos los estacionamiemtos vigentes.
-		// debería tener una exepción para saber si es la hora fin de estacionamiento medido?
+		this.estacionamientos.stream().filter(e -> e.estaVigente()).forEach(e -> e.setHoraFin(LocalDateTime.now()));
 	}
 	
 	public void iniciarEstacionamientoApp(String patente, String numeroDeCelular) {
@@ -158,8 +103,8 @@ public class SEM {
 	 * Es un método que nos sugirió Butti, para cuando se cree una instancia de EstacionamientoApp,
 	 * supongamos que se llama a este método para ponerle un horario de fin de estacionamiento.
 	 */
-	public void finalizarEstacionamientoDeApp(String numeroDeCelular) {
-		
+	public void finalizarEstacionamientoDeApp(String celular) {
+		//TODO: finalizar el estacionamiento en la lista de estacionamientosApp
 	}
 	
 	private Boolean tieneEstacionamientoVigente(String patente) {
