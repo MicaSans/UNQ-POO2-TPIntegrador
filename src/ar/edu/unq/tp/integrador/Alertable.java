@@ -4,5 +4,5 @@ public interface Alertable {
 	
 	public void inicioEstacionamiento();
 	public void finEstacionamiento();
-	
+	public void recargaDeCredito();
 }
