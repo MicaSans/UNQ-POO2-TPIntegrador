@@ -37,6 +37,10 @@ public class SEM {
 		//Se obtiene el precio por hora de estacionamiento (actualmente $40.-)
 		return precioPorHora;
 	}
+
+	public int saldoParaElHorario(LocalDateTime horaInicio, LocalDateTime horarioFin) {
+		return (horarioFin.getHour() - horaInicio.getHour()) * precioPorHora;
+	}
 	
 	public List<Compra> getCompras() {
 		return compras;
@@ -58,7 +62,7 @@ public class SEM {
 	
 	private <T> void registrarElemento(List<T> lista, T elemento, String mensajeError) {
         if (lista.stream().anyMatch(e -> e.equals(elemento))) {
-            throw new IllegalArgumentException(mensajeError);
+            System.out.println(mensajeError);
         } else {
             lista.add(elemento);
         }

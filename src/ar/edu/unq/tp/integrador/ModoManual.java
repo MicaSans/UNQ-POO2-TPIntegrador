@@ -14,7 +14,6 @@ public class ModoManual implements Modo {
 
 	@Override
 	public void iniciarEstacionamiento(AppConductor appConductor, String patente) {
-		
 		appConductor.getSem().iniciarEstacionamientoApp(patente, appConductor);
 	}
 

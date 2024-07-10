@@ -36,4 +36,8 @@ public class Celular {
 		this.saldo += montoCarga;
 	}
 	
+	public void descontarSaldo(Integer montoADescontar) {
+		this.saldo -= montoADescontar;
+	}
+	
 }
