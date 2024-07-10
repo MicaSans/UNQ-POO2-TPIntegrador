@@ -20,4 +20,14 @@ public class EstacionamientoApp extends Estacionamiento {
 		LocalDateTime maxHoraDeFin = this.getHoraInicio().plusHours(maxCantHorasSegunSaldo);
 		return maxHoraDeFin;
 	}
+	
+	@Override
+	public boolean esEstacionamientoApp() {
+		return true;
+	}
+	
+	@Override
+	public String getNroCelular() {
+		return this.celular.getNroCelular();
+	}
 }

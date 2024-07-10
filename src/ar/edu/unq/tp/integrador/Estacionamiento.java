@@ -38,4 +38,7 @@ public abstract class Estacionamiento {
 	public Boolean estaVigente() {
 		return this.horaFin.isAfter(LocalDateTime.now());
 	}
+	
+	public abstract boolean esEstacionamientoApp();
+	public abstract String getNroCelular();
 }

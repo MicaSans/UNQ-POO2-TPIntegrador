@@ -9,7 +9,7 @@ public class ModoAutomatico implements Modo {
 
 	@Override
 	public void walking(AppConductor appConductor) {
-		appConductor.finalizarEstacionamiento(appConductor.getNumeroDeCelular());
+		appConductor.getSem().finalizarEstacionamientoDeApp(appConductor.getNumeroDeCelular());
 	}
 
 	@Override
@@ -19,7 +19,7 @@ public class ModoAutomatico implements Modo {
 
 	@Override
 	public void finalizarEstacionamiento(AppConductor appConductor) {
-		appConductor.finalizarEstacionamiento(appConductor.getNumeroDeCelular());
+		appConductor.getSem().finalizarEstacionamientoDeApp(appConductor.getNumeroDeCelular());
 	}
 
 }
