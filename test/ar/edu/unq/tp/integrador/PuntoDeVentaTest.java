@@ -41,7 +41,7 @@ class PuntoDeVentaTest {
 		//Verifico que la compra se registre en el SEM
 		verify(sem, times(1)).registrarCompra(compraCelular);
 		//Verifico que se cargue correctamente el crédito
-		verify(celular, times(1)).cargarSaldo(monto);
+		verify(sem, times(1)).registrarCredito(celular,monto);
 	}
 	
 	@Test
