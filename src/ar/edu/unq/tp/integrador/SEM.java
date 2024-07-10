@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class SEM {
 	
@@ -91,25 +92,29 @@ public class SEM {
 	}
 	
 	public void iniciarEstacionamientoApp(String patente, AppConductor appConductor) {
-		EstacionamientoApp estacionamientoApp = new EstacionamientoApp(appConductor.getCelular(), patente, horarioInicio);
+		Estacionamiento estacionamientoApp = new EstacionamientoApp(appConductor.getCelular(), patente, horarioInicio);
 		this.registrarEstacionamiento(estacionamientoApp);
 		this.alertarInicioEstacionamiento();
 	}
 	
 	public void iniciarEstacionamientoPtoVta(String patente, Integer cantidadDeHoras) {
-		EstacionamientoPuntual estacionamientoPuntual = new EstacionamientoPuntual(patente, horarioInicio, horarioFin);
+		Estacionamiento estacionamientoPuntual = new EstacionamientoPuntual(patente, horarioInicio, horarioFin);
 		this.registrarEstacionamiento(estacionamientoPuntual);
 		this.alertarInicioEstacionamiento();
 	}
-	
 	
 	/*
 	 * Finaliza el Estacionamiento de un numero de celular en concreto.
 	 * Es un método que nos sugirió Butti, para cuando se cree una instancia de EstacionamientoApp,
 	 * supongamos que se llama a este método para ponerle un horario de fin de estacionamiento.
 	 */
+	//TODO: revisar
 	public void finalizarEstacionamientoDeApp(String celular) {
-		//TODO: finalizar el estacionamiento en la lista de estacionamientosApp
+		List<Estacionamiento> estacionamientosApp = this.estacionamientos.stream().filter(e -> e.esEstacionamientoApp()).toList();
+		Optional<Estacionamiento> estacionamientoBuscado = estacionamientosApp.stream().filter(e -> e.getNroCelular().equals(celular)).findFirst();
+		Estacionamiento estacionamientoEncontrado = estacionamientoBuscado.get();
+		estacionamientoEncontrado.setHoraFin(LocalDateTime.now());
+		this.alertarFinEstacionamiento();
 	}
 	
 	private Boolean tieneEstacionamientoVigente(String patente) {
