@@ -13,6 +13,10 @@ public class AppConductor implements MovementSensor{
 		this.modo = new ModoManual(); //Por defecto, comienza en modo manual
 		this.gpsActivado = false; //Por defecto, el gps no se encuentra activado
 	}
+	
+	public Celular getCelular() {
+		return this.celular;
+	}
 
 	public SEM getSem() {
 		return sem;

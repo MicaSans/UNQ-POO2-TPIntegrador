@@ -6,8 +6,8 @@ public class CompraPuntual extends Compra {
 	private String patente;
 	private Integer cantidadDeHoras;
 	
-	public CompraPuntual(LocalDateTime fecYHr, String patente, Integer cantHs) {
-		super(fecYHr);
+	public CompraPuntual(PuntoDeVenta puntoDeVenta, LocalDateTime fecYHr, String patente, Integer cantHs) {
+		super(puntoDeVenta, fecYHr);
 		this.patente = patente;
 		this.cantidadDeHoras = cantHs;
 	}

@@ -83,18 +83,23 @@ public class SEM {
     
 	public void registrarCredito(Celular celular, Integer credito) {
 		celular.cargarSaldo(credito);
+		this.alertarRecargaDeCredito();
 	}
 	
 	public void finalizarEstacionamientosVigentes() {
 		this.estacionamientos.stream().filter(e -> e.estaVigente()).forEach(e -> e.setHoraFin(LocalDateTime.now()));
 	}
 	
-	public void iniciarEstacionamientoApp(String patente, String numeroDeCelular) {
-		//Debería registrar el estacionamiento y envia notificacion?. Leer consignas tp.
+	public void iniciarEstacionamientoApp(String patente, AppConductor appConductor) {
+		EstacionamientoApp estacionamientoApp = new EstacionamientoApp(appConductor.getCelular(), patente, horarioInicio);
+		this.registrarEstacionamiento(estacionamientoApp);
+		this.alertarInicioEstacionamiento();
 	}
 	
 	public void iniciarEstacionamientoPtoVta(String patente, Integer cantidadDeHoras) {
-		//Leer consignas tp.
+		EstacionamientoPuntual estacionamientoPuntual = new EstacionamientoPuntual(patente, horarioInicio, horarioFin);
+		this.registrarEstacionamiento(estacionamientoPuntual);
+		this.alertarInicioEstacionamiento();
 	}
 	
 	
@@ -138,5 +143,9 @@ public class SEM {
 	
 	private void alertarFinEstacionamiento() {
 		suscriptoresDeAlertas.stream().forEach(s -> s.finEstacionamiento());
+	}
+	
+	private void alertarRecargaDeCredito() {
+		suscriptoresDeAlertas.stream().forEach(s -> s.recargaDeCredito());
 	}
 }	
