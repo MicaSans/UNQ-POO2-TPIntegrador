@@ -8,7 +8,7 @@ public class AppConductor implements MovementSensor{
 	private SEM sem;
 	private Celular celular;
 	private Modo modo;
-	private Boolean gpsActivado;
+	private boolean gpsActivado;
 	private LocalDateTime horaInicioEstacionamiento;
 	
 	public AppConductor(SEM sem, Celular celular) {
@@ -22,23 +22,23 @@ public class AppConductor implements MovementSensor{
 		return this.celular;
 	}
 
-	public SEM getSem() {
-		return sem;
-	}
-
 	public String getNumeroDeCelular() {
 		return this.celular.getNroCelular();
+	}
+
+	public SEM getSem() {
+		return sem;
 	}
 
 	public Modo getModo() {
 		return modo;
 	}
 
-	public Boolean getGps() {
+	public boolean getGps() {
 		return gpsActivado;
 	}
 
-	private void setGps(Boolean gps) {
+	private void setGps(boolean gps) {
 		this.gpsActivado = gps;
 	}
 	
@@ -96,18 +96,14 @@ public class AppConductor implements MovementSensor{
 		int horasTranscurridas = (int) duracionEstacionamiento.toHours();
 		return horasTranscurridas * sem.getPrecioPorHora();
 	}
-	
-	private void calcularSaldoADescontar(LocalDateTime horario) {
-		this.descontarCredito(obtenerImporteADescontar(horario));
-	}
 
-	private void descontarCredito(Integer monto) {
-		celular.descontarSaldo(monto);
+	private void descontarCredito(LocalDateTime horario) {
+		celular.descontarSaldo(obtenerImporteADescontar(horario));
 	}
 
 	public void finalizarEstacionamiento(String numeroCelular) {
 		this.getModo().finalizarEstacionamiento(this);
-		this.calcularSaldoADescontar(LocalDateTime.now());
+		this.descontarCredito(LocalDateTime.now());
 		System.out.println("Estacionamiento finalizado: su hora inicial fue " + this.horaInicioEstacionamiento + ", su hora de finalización " + LocalDateTime.now() + ", la duración del estacionamiento fue de " + Duration.between(horaInicioEstacionamiento, LocalDateTime.now()) + " y el importe debitado de su crédito fue $" + this.obtenerImporteADescontar(LocalDateTime.now()));
 	}
 	
