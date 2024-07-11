@@ -90,11 +90,6 @@ public class AppConductor implements MovementSensor {
 		this.modo.activarODesactivarNotificaciones(this);
 	}
 	
-	//TODO: revisar
-	public void consultarSaldoDisponible() {
-		System.out.println("Su saldo actual es $" + getCreditoDisponible());
-	}
-	
 	@Override
 	public void driving() {
 		this.getEstado().driving(this);
