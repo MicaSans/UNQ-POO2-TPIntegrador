@@ -1,5 +1,6 @@
 package ar.edu.unq.tp.integrador;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -148,9 +149,18 @@ public class SEM {
 	//TODO: revisar
 	public void finalizarEstacionamiento(String celular) {
 		Estacionamiento estacionamientoApp = buscarEstacionamientoApp(celular);
+		Duration horasEstacionado = Duration.between(estacionamientoApp.getHoraInicio(),
+				estacionamientoApp.getHoraFin());
+		Integer totalACobrar = horasEstacionado.toHoursPart() * this.getPrecioPorHora();
+
 		estacionamientoApp.setHoraFin(LocalDateTime.now());
-		estacionamientoApp.cobrarEstacionamiento(this.getPrecioPorHora());
+		estacionamientoApp.cobrarEstacionamiento(totalACobrar);
 		this.alertarFinEstacionamiento();
+
+		System.out.println("Estacionamiento finalizado: su hora inicial fue " + estacionamientoApp.getHoraInicio()
+				+ ", su hora de finalización " + estacionamientoApp.getHoraFin()
+				+ ", la duración del estacionamiento fue de " + horasEstacionado + " hs,"
+				+ " y el importe debitado de su crédito fue $" + totalACobrar);
 	}
 	
 	private Estacionamiento buscarEstacionamientoApp(String celular) {

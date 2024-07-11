@@ -33,10 +33,8 @@ public class EstacionamientoApp extends Estacionamiento {
 	}
 	
 	@Override
-	public void cobrarEstacionamiento(Integer precioHoras) {
-		Duration horasEstacionado = Duration.between(this.getHoraInicio(), this.getHoraFin());
-        Integer totalACobrar = horasEstacionado.toHoursPart() * precioHoras;
-        this.getCelular().descontarSaldo(totalACobrar);
+	public void cobrarEstacionamiento(Integer monto) {
+        this.getCelular().descontarSaldo(monto);
 	}
 
 	public Celular getCelular() {

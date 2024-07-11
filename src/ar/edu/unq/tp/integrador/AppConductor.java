@@ -62,26 +62,9 @@ public class AppConductor implements MovementSensor{
 		this.sem.iniciarEstacionamiento(patente, this.getCelular()); 
 	}
 	
-	/*
-	private int obtenerImporteADescontar(LocalDateTime horario) {
-		Duration duracionEstacionamiento = Duration.between(horaInicioEstacionamiento, horario);
-		int horasTranscurridas = (int) duracionEstacionamiento.toHours();
-		return horasTranscurridas * sem.getPrecioPorHora();
+	public void finalizarEstacionamiento() {
+		this.sem.finalizarEstacionamiento(this.getNumeroDeCelular());
 	}
-	
-	private void calcularSaldoADescontar(LocalDateTime horario) {
-		this.descontarCredito(obtenerImporteADescontar(horario));
-	}
-
-	private void descontarCredito(Integer monto) {
-		celular.descontarSaldo(monto);
-	}
-
-	public void finalizarEstacionamiento(String numeroCelular) {
-		this.getModo().finalizarEstacionamiento(this);
-		this.calcularSaldoADescontar(LocalDateTime.now());
-		System.out.println("Estacionamiento finalizado: su hora inicial fue " + this.horaInicioEstacionamiento + ", su hora de finalización " + LocalDateTime.now() + ", la duración del estacionamiento fue de " + Duration.between(horaInicioEstacionamiento, LocalDateTime.now()) + " y el importe debitado de su crédito fue $" + this.obtenerImporteADescontar(LocalDateTime.now()));
-	}*/
 	
 	public void consultarSaldoDisponible() {
 		System.out.println("Su saldo actual es $" + getCreditoDisponible());

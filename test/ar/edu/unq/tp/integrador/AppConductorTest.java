@@ -2,6 +2,8 @@ package ar.edu.unq.tp.integrador;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,12 +25,15 @@ class AppConductorTest {
 	@Test
 	void testIniciarEstacionamiento() {
 		appConductor.iniciarEstacionamiento(patente);
+		
+		verify(sem, times(1)).iniciarEstacionamiento(patente, celular);
 	}
 	
 	@Test
 	void testFinalizarEstacionamiento() {
-		appConductor.iniciarEstacionamiento(patente);
+		appConductor.finalizarEstacionamiento();
 		
+		verify(sem, times(1)).finalizarEstacionamiento(appConductor.getNumeroDeCelular());
 	}
 
 }
