@@ -17,7 +17,7 @@ class InfraccionTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		zona = mock(Zona.class);
-		infraccion = new Infraccion("OE856WI", LocalDateTime.parse("2023-10-11T19:30:00.00"), zona);
+		infraccion = new Infraccion("OE856WI", LocalDateTime.parse("2023-10-11T19:30:00.00"), zona, "8975");
 	}
 
 	@Test
