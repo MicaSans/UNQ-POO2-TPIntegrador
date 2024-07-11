@@ -1,5 +1,6 @@
 package ar.edu.unq.tp.integrador;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 
 public class EstacionamientoApp extends Estacionamiento {
@@ -29,5 +30,14 @@ public class EstacionamientoApp extends Estacionamiento {
 	@Override
 	public String getNroCelular() {
 		return this.celular.getNroCelular();
+	}
+	
+	@Override
+	public void cobrarEstacionamiento(Integer monto) {
+        this.getCelular().descontarSaldo(monto);
+	}
+
+	public Celular getCelular() {
+		return this.celular;
 	}
 }

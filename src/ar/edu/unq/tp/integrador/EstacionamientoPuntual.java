@@ -19,4 +19,7 @@ public class EstacionamientoPuntual extends Estacionamiento {
 		return null;
 	}
 
+	@Override
+	protected void cobrarEstacionamiento(Integer precioHoras) {}
+
 }

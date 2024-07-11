@@ -5,6 +5,7 @@ import static org.mockito.Mockito.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 
 class PuntoDeVentaTest {
@@ -24,10 +25,11 @@ class PuntoDeVentaTest {
 		String patente = "OPW857";
 		Integer cantidadDeHoras = 2;
 		
-		CompraPuntual compraPuntual = puntoDeVenta.generarCompraPuntual(patente, cantidadDeHoras);
+		puntoDeVenta.generarCompraPuntual(patente, cantidadDeHoras);
+		ArgumentCaptor<CompraPuntual> compraPuntual = ArgumentCaptor.forClass(CompraPuntual.class);
 		
 		//Verifico que la compra se registre en el SEM
-		verify(sem,times(1)).registrarCompra(compraPuntual);
+		verify(sem,times(1)).registrarCompra(compraPuntual.capture());
 	}
 	
 	@Test

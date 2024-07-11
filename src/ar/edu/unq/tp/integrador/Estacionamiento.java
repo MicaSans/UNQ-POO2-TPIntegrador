@@ -1,5 +1,6 @@
 package ar.edu.unq.tp.integrador;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 
 public abstract class Estacionamiento {
@@ -41,4 +42,7 @@ public abstract class Estacionamiento {
 	
 	public abstract boolean esEstacionamientoApp();
 	public abstract String getNroCelular();
+
+	protected abstract void cobrarEstacionamiento(Integer precioHoras);
+
 }
