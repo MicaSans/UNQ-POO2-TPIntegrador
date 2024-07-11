@@ -62,7 +62,7 @@ public class SEM {
 	
 	private <T> void registrarElemento(List<T> lista, T elemento, String mensajeError) {
         if (lista.stream().anyMatch(e -> e.equals(elemento))) {
-            System.out.println(mensajeError);
+        	throw new IllegalArgumentException(mensajeError);
         } else {
             lista.add(elemento);
         }

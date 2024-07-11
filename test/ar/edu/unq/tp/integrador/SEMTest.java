@@ -27,7 +27,7 @@ class SEMTest {
 	@Test
 	void testGetPrecioPorHora() {
 		//Se testea que se obtenga correctamente el precio por hora de estacionamiento ($40 actualmente)
-		assertTrue(sem.getPrecioPorHora().equals(40));
+		assertTrue(sem.getPrecioPorHora() == 40);
 	}
 
 	@Test
@@ -95,10 +95,11 @@ class SEMTest {
 	@Test
 	void testGenerarInfraccion() {
 		//Se testea que se genere correctamente una infracción y al hacerlo se incluya en la lista de infracciones del SEM como corresponde
-		Infraccion infraccionNueva = sem.generarInfraccion("ARF845", zona);
+		Infraccion infraccionNueva = sem.generarInfraccion("ARF845", zona, "8597");
 		
 		assertEquals(infraccionNueva.getPatente(), "ARF845");
 		assertEquals(infraccionNueva.getZona(), zona);
+		assertEquals(infraccionNueva.getIdInspector(), "8597");
 		assertTrue(sem.getInfracciones().contains(infraccionNueva));
 	}
 }
