@@ -1,17 +1,21 @@
 package ar.edu.unq.tp.integrador;
 
-public class AppConductor implements MovementSensor{
+public class AppConductor implements MovementSensor {
 	
 	private SEM sem;
 	private Celular celular;
+	private String patente;
 	private Modo modo;
-	private Boolean gpsActivado;
+	private Estado estado;
+	private Boolean alertaDesplazamientoActiva;
 	
-	public AppConductor(SEM sem, Celular celular) {
+	public AppConductor(SEM sem, Celular celular, String patente) {
 		this.sem = sem;
 		this.celular = celular;
-		this.modo = new ModoManual(); //Por defecto, comienza en modo manual
-		this.gpsActivado = false; //Por defecto, el gps no se encuentra activado
+		this.modo = new ModoManual();
+		this.estado = new EstadoAPie();
+		this.patente = patente;
+		this.alertaDesplazamientoActiva = true;
 	}
 
 	public String getNumeroDeCelular() {
@@ -21,6 +25,10 @@ public class AppConductor implements MovementSensor{
 	public Celular getCelular() {
 		return this.celular;
 	}
+	
+	public String getPatente() {
+		return patente;
+	}
 
 	public SEM getSem() {
 		return sem;
@@ -29,61 +37,72 @@ public class AppConductor implements MovementSensor{
 	public Modo getModo() {
 		return modo;
 	}
-
-	public boolean getGps() {
-		return gpsActivado;
-	}
-
-	private void setGps(boolean gps) {
-		this.gpsActivado = gps;
-	}
 	
+	public Estado getEstado() {
+		return this.estado;
+	}
+
 	public int getCreditoDisponible() {
 		return this.celular.getSaldo();
 	}
 	
-	/*
-	public boolean haySaldoSuficiente() {
-		int creditoNecesario = sem.saldoParaElHorario(LocalDateTime.now(), sem.getHorarioFin());
-		return getCreditoDisponible() >= creditoNecesario;
-	}*/
-	
-	@Override
-	public void driving() {
-		this.getModo().driving(this);
-	}
-
-	@Override
-	public void walking() {
-		this.getModo().walking(this);
+	public Boolean getAlertaDesplazamientoActiva() {
+		return alertaDesplazamientoActiva;
 	}
 	
-	public void iniciarEstacionamiento(String patente) {
-		this.sem.iniciarEstacionamiento(patente, this.getCelular()); 
+	public void setModo(Modo modo) {
+		this.modo = modo;
+	}
+	
+	public void setEstado(Estado estado) {
+		this.estado = estado;
+	}
+	
+	public void setAlertaDesplazamientoActiva() {
+		alertaDesplazamientoActiva = !alertaDesplazamientoActiva;
+	}
+	
+	public void iniciarEstacionamiento() {
+		this.estado.iniciarEstacionamiento(this);
+	}
+	
+	public void iniciarEstacionamientoSEM() {
+		this.sem.iniciarEstacionamiento(this.getPatente(), this.getCelular());
 	}
 	
 	public void finalizarEstacionamiento() {
+		this.estado.finalizarEstacionamiento(this);
+	}
+	
+	public void finalizarEstacionamientoSEM() {
 		this.sem.finalizarEstacionamiento(this.getNumeroDeCelular());
 	}
 	
+	public void notificarPosibleInicioDeEstacionamiento() {
+		this.modo.notificarPosibleInicioDeEstacionamiento(this);
+	}
+	
+	public void notificarPosibleFinDeEstacionamiento() {
+		this.modo.notificarPosibleFinDeEstacionamiento(this);
+	}
+	
+	public void activarODesactivarNotificaciones() {
+		this.modo.activarODesactivarNotificaciones(this);
+	}
+	
+	//TODO: revisar
 	public void consultarSaldoDisponible() {
 		System.out.println("Su saldo actual es $" + getCreditoDisponible());
 	}
 	
-	public void activarGPS() {
-		if (!this.getGps()) {
-			this.setGps(true);
-		}else {
-			throw new IllegalArgumentException("El GPS ya está activado."); 
-		}
+	@Override
+	public void driving() {
+		this.getEstado().driving(this);
 	}
-	
-	public void desactivarGPS() {
-		if (this.getGps()) {
-			this.setGps(false);
-		}else {
-			throw new IllegalArgumentException("El GPS ya está desactivado."); 
-		}
+
+	@Override
+	public void walking() {
+		this.getEstado().walking(this);
 	}
 	
 }
