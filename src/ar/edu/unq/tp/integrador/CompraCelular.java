@@ -6,10 +6,10 @@ public class CompraCelular extends Compra {
 	private Integer montoDeCarga;
 	private String numeroDeCelular;
 	
-	public CompraCelular(LocalDateTime fecYHr, Celular nroCel, Integer montoCarga) {
-		super(fecYHr);
+	public CompraCelular(PuntoDeVenta puntoDeVenta, LocalDateTime fecYHr, Celular celular, Integer montoCarga) {
+		super(puntoDeVenta, fecYHr);
 		this.montoDeCarga = montoCarga;
-		this.numeroDeCelular = nroCel.getNroCelular();
+		this.numeroDeCelular = celular.getNroCelular();
 	}
 	
 	public Integer getMontoDeCarga() {

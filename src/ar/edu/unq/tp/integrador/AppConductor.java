@@ -2,47 +2,20 @@ package ar.edu.unq.tp.integrador;
 
 public class AppConductor implements MovementSensor{
 	
-	/**
-	 * Esta clase es la que utilizan las personas que hagan uso del Sistema de Estacionamiento Medido.
-	 */
-	
-	/**
-	 * Variables de instancia
-	 */
-	
-	/* Declaración del colaborador interno "sem". Corresponde a la clase SEM.
-	 */
 	private SEM sem;
-	
-	/* Declaración del colaborador interno "numeroDeTelefono".
-	*  Hace referencia al número de télefono que tiene asociado el usuario.
-	*  Es de tipo String.
-	*/
 	private Celular celular;
+	private Modo modo;
+	private Boolean gpsActivado;
 	
-	/* Declaración e inicialización del colaborador interno "modo".
-	 * Es una interfaz del tipo IModo.
-	 * Corresponde al modo en que se encuentra la aplicación: Manual o Automático.
-	 * Por defecto se inicializa en modo "ModoManual". 
-	 * */
-	private IModo modo = new ModoManual();
-	
-	/* Declaración e inicialización del colaborador interno "gps".
-	 * Es del tipo Boolean.
-	 * Simboliza la representación del estado on/off del gps.
-	 * Por defecto se inicializa en "false". 
-	 * */
-	private Boolean gps = false;
-
-	/**
-	 * Getters & Setters 
-	 */
-	public SEM getSem() {
-		return sem;
+	public AppConductor(SEM sem, Celular celular) {
+		this.sem = sem;
+		this.celular = celular;
+		this.modo = new ModoManual(); //Por defecto, comienza en modo manual
+		this.gpsActivado = false; //Por defecto, el gps no se encuentra activado
 	}
 
-	private void setSem(SEM sem) {
-		this.sem = sem;
+	public SEM getSem() {
+		return sem;
 	}
 
 	public String getNumeroDeCelular() {
@@ -53,61 +26,72 @@ public class AppConductor implements MovementSensor{
 		return this.celular;
 	}
 
-	public IModo getModo() {
+	public Modo getModo() {
 		return modo;
 	}
 
-	private void setModo(IModo modo) {
-		this.modo = modo;
-	}
-
 	public Boolean getGps() {
-		return gps;
+		return gpsActivado;
 	}
 
 	private void setGps(Boolean gps) {
-		this.gps = gps;
+		this.gpsActivado = gps;
 	}
-
-	/**
-	 * Constructor de clase.
-	 * @param sem El SEM con el cual se comunica la appConductor.
-	 * @param numeroDeCelular El número de celular que tiene registrada la appConductor.
-	 */
-	public AppConductor(SEM sem, Celular celular) {
-		super();
-		this.setSem(sem);
-		this.celular = celular;
-		this.setModo(this.getModo());
-		this.setGps(this.getGps());
+	
+	public int getCreditoDisponible() {
+		return this.celular.getSaldo();
 	}
+	
+	/*
+	public boolean haySaldoSuficiente() {
+		int creditoNecesario = sem.saldoParaElHorario(LocalDateTime.now(), sem.getHorarioFin());
+		return getCreditoDisponible() >= creditoNecesario;
+	}*/
 	
 	@Override
 	public void driving() {
-		// TODO completar implementacion
-		// modo.ejecutarAPie();
-		
+		this.getModo().driving(this);
 	}
 
 	@Override
 	public void walking() {
-		// TODO completar implementacion
-		// modo.ejecutarEnVehiculo();
+		this.getModo().walking(this);
 	}
 	
 	public void iniciarEstacionamiento(String patente) {
 		this.sem.iniciarEstacionamiento(patente, this.getCelular()); 
 	}
 	
-	public void finalizarEstacionamiento(String numeroDeCelular) {
-		
+	/*
+	private int obtenerImporteADescontar(LocalDateTime horario) {
+		Duration duracionEstacionamiento = Duration.between(horaInicioEstacionamiento, horario);
+		int horasTranscurridas = (int) duracionEstacionamiento.toHours();
+		return horasTranscurridas * sem.getPrecioPorHora();
+	}
+	
+	private void calcularSaldoADescontar(LocalDateTime horario) {
+		this.descontarCredito(obtenerImporteADescontar(horario));
+	}
+
+	private void descontarCredito(Integer monto) {
+		celular.descontarSaldo(monto);
+	}
+
+	public void finalizarEstacionamiento(String numeroCelular) {
+		this.getModo().finalizarEstacionamiento(this);
+		this.calcularSaldoADescontar(LocalDateTime.now());
+		System.out.println("Estacionamiento finalizado: su hora inicial fue " + this.horaInicioEstacionamiento + ", su hora de finalización " + LocalDateTime.now() + ", la duración del estacionamiento fue de " + Duration.between(horaInicioEstacionamiento, LocalDateTime.now()) + " y el importe debitado de su crédito fue $" + this.obtenerImporteADescontar(LocalDateTime.now()));
+	}*/
+	
+	public void consultarSaldoDisponible() {
+		System.out.println("Su saldo actual es $" + getCreditoDisponible());
 	}
 	
 	public void activarGPS() {
-		if (this.getGps()) {
-			throw new IllegalArgumentException("El GPS ya está activado."); 
-		}else {
+		if (!this.getGps()) {
 			this.setGps(true);
+		}else {
+			throw new IllegalArgumentException("El GPS ya está activado."); 
 		}
 	}
 	

@@ -3,8 +3,8 @@ package ar.edu.unq.tp.integrador;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 public class SEM {
 	
@@ -39,6 +39,10 @@ public class SEM {
 		//Se obtiene el precio por hora de estacionamiento (actualmente $40.-)
 		return precioPorHora;
 	}
+
+	public int saldoParaElHorario(LocalDateTime horaInicio, LocalDateTime horarioFin) {
+		return (horarioFin.getHour() - horaInicio.getHour()) * precioPorHora;
+	}
 	
 	public List<Compra> getCompras() {
 		return compras;
@@ -58,59 +62,9 @@ public class SEM {
 		return infracciones;
 	}
 	
-	// TODO codigo repetido en el registro de zona, estacionamiento, compra e infraccion
-	/*
-	public void registrarZona(Zona zona) {
-		if (!this.estaLaZonaRegistrada(zona)) {
-			zonas.add(zona);
-		}else {
-			throw new IllegalArgumentException("La zona ya está registrada.");
-		}
-			
-	}
-
-	private Boolean estaLaZonaRegistrada(Zona zona) {
-		return zonas.stream().anyMatch(z -> z.equals(zona));
-	}
-	
-	public void registrarCompra(Compra compra) {
-		if (!this.estaLaCompraRegistrada(compra)) {
-			compras.add(compra);
-		}else {
-			throw new IllegalArgumentException("La compra ya está registrada.");
-		}
-	}
-
-	private Boolean estaLaCompraRegistrada(Compra compra) {
-		return compras.stream().anyMatch(c -> c.equals(compra));
-	}
-	
-	private void registrarEstacionamiento(Estacionamiento estacionamiento) {
-		if (!this.estaElEstacionamientoRegistrado(estacionamiento)) {
-			estacionamientos.add(estacionamiento);
-		}else {
-			throw new IllegalArgumentException("El estacionamiento ya está registrada.");
-		}
-	}
-
-	private Boolean estaElEstacionamientoRegistrado(Estacionamiento estacionamiento) {
-		return estacionamientos.stream().anyMatch(e -> e.equals(estacionamiento));
-	}
-	private void registrarInfraccion(Infraccion infraccion) {
-		if (!this.estaLaInfraccionRegistrada(infraccion)) {
-			infracciones.add(infraccion);
-		}else {
-			throw new IllegalArgumentException("La infraccion ya está registrada.");
-		}
-	}
-
-	private boolean estaLaInfraccionRegistrada(Infraccion infraccion) {
-		return infracciones.stream().anyMatch(i -> i.equals(infraccion));
-	}*/
-	
 	private <T> void registrarElemento(List<T> lista, T elemento, String mensajeError) {
         if (lista.stream().anyMatch(e -> e.equals(elemento))) {
-            throw new IllegalArgumentException(mensajeError);
+        	throw new IllegalArgumentException(mensajeError);
         } else {
             lista.add(elemento);
         }
@@ -134,23 +88,32 @@ public class SEM {
         registrarElemento(infracciones, infraccion, "La infracción ya está registrada.");
     }
     
-	public void registrarCredito(Celular numeroCelular, Integer credito) {
+	public void registrarCredito(Celular celular, Integer credito) {
+		celular.cargarSaldo(credito);
+		this.alertarRecargaDeCredito();
 	}
 	
 	public void finalizarEstacionamientosVigentes() {
-	//TODO: finaliza todos los estacionamiemtos vigentes.
-		// debería tener una exepción para saber si es la hora fin de estacionamiento medido?
+		this.estacionamientos.stream()
+		.filter(e -> e.estaVigente())
+		.forEach(e -> e.setHoraFin(LocalDateTime.now().with(this.getHoraFinEstacionamientoMedido())));
 	}
 	
-	public String iniciarEstacionamiento(String patente, Celular celular) {
+	/**
+	 * Inicia un estacionamiento solicitado desde la app del conductor
+	 * 
+	 * @patente la patente del vehiculo estacionado
+	 * @celular el celular desde el cual se solicita el inicio del estacionamiento
+	 */
+	public void iniciarEstacionamiento(String patente, Celular celular) {
 		if (this.tieneCreditoSuficiente(celular)) {
 			LocalDateTime horaInicio = LocalDateTime.now();
 			Estacionamiento estacionamiento = new EstacionamientoApp(celular, patente, horaInicio);
 			this.registrarEstacionamiento(estacionamiento);
 			this.alertarInicioEstacionamiento();
-			return "Hora inicio: " + horaInicio + " Hora máxima de fin: " + this.maxHoraFinQuePuedeAbonar(celular, horaInicio);
+			System.out.println( "Hora inicio: " + horaInicio + " Hora máxima de fin: " + this.maxHoraFinQuePuedeAbonar(celular, horaInicio));
 		}else {
-			throw new IllegalArgumentException("No tiene saldo suficiente para iniciar el estacionamiento.");
+			throw new IllegalArgumentException("Saldo insuficiente. Estacionamiento no permitido");
 		}
 	}
 	
@@ -164,27 +127,45 @@ public class SEM {
 		return celular.getSaldo() >= this.getPrecioPorHora();
 	}
 	
-	
-	public void iniciarEstacionamientoPtoVta(String patente, Integer cantidadDeHoras) {
-		//Leer consignas tp.
+	/**
+	 * Inicia un estacionamiento por compra puntual
+	 * 
+	 * @patente la patente del vehiculo estacionado
+	 * @horaInicio la hora de inicio del estacionamiento
+	 * @horaFin la hora de fin del estacionamiento
+	 */
+	public void iniciarEstacionamiento(String patente, LocalDateTime horaInicio, LocalDateTime horaFin) {
+		Estacionamiento estacionamientoPuntual = new EstacionamientoPuntual(patente, horaInicio, horaFin);
+		this.registrarEstacionamiento(estacionamientoPuntual);
+		this.alertarInicioEstacionamiento();
 	}
-	
 	
 	/*
-	 * Finaliza el Estacionamiento de un numero de celular en concreto.
-	 * Es un método que nos sugirió Butti, para cuando se cree una instancia de EstacionamientoApp,
-	 * supongamos que se llama a este método para ponerle un horario de fin de estacionamiento.
+	 * Finaliza el Estacionamiento asociado al numero de celular pasado por parámetro.
+	 * 
+	 * @celular el número de celular desde el cuál se inicio el estacinamiento
 	 */
-	public void finalizarEstacionamientoDeApp(String numeroDeCelular) {
-		
+	//TODO: revisar
+	public void finalizarEstacionamiento(String celular) {
+		Estacionamiento estacionamientoApp = buscarEstacionamientoApp(celular);
+		estacionamientoApp.setHoraFin(LocalDateTime.now());
+		estacionamientoApp.cobrarEstacionamiento(this.getPrecioPorHora());
+		this.alertarFinEstacionamiento();
 	}
 	
-	private Boolean tieneEstacionamientoVigente(String patente) {
+	private Estacionamiento buscarEstacionamientoApp(String celular) {
+		List<Estacionamiento> estacionamientosApp = this.estacionamientos.stream().filter(e -> e instanceof EstacionamientoApp).toList();
+		Optional<Estacionamiento> estacionamientoBuscado = estacionamientosApp.stream().filter(e -> e.getNroCelular().equals(celular)).findFirst();
+		
+		return estacionamientoBuscado.get();
+	}
+	
+	public Boolean tieneEstacionamientoVigente(String patente) {
 		Estacionamiento estacionamiento = null;
 		for(Estacionamiento e : this.getEstacionamientos()) {
 			if(e.getPatente().equals(patente)) {
 				estacionamiento = e;
-			}
+			}	
 		}
 		return estacionamiento.estaVigente();
 	}
@@ -210,5 +191,9 @@ public class SEM {
 	
 	private void alertarFinEstacionamiento() {
 		suscriptoresDeAlertas.stream().forEach(s -> s.finEstacionamiento());
+	}
+	
+	private void alertarRecargaDeCredito() {
+		suscriptoresDeAlertas.stream().forEach(s -> s.recargaDeCredito());
 	}
 }	
