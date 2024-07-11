@@ -63,4 +63,15 @@ class CompraTest {
 		assertEquals(celular.getNroCelular(), compraCelular.getNumeroDeCelular());
 	}
 
+	@Test
+	void testGetPuntoDeVenta() {
+		CompraCelular compra = new CompraCelular(puntoDeVenta, LocalDateTime.now(), new Celular(), 500);
+		assertEquals(compra.getPuntoDeVenta(), puntoDeVenta);
+	}
+	
+	@Test
+	void testGetNumeroDeControl() {
+		CompraCelular compra = new CompraCelular(puntoDeVenta, LocalDateTime.now(), new Celular(), 9400);
+		assertEquals(5, compra.getNumeroControl());
+	}
 }

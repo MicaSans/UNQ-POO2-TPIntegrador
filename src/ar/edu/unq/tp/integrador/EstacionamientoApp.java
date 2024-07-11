@@ -12,7 +12,7 @@ public class EstacionamientoApp extends Estacionamiento {
 	}
 	
 	@Override
-	public Boolean estaVigente() {
+	public boolean estaVigente() {
 		return this.getHoraFin() == null && this.maxHoraDeFinQuePodriaAbonar().isAfter(LocalDateTime.now());
 	}
 	

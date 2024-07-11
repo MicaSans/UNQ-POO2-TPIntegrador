@@ -14,10 +14,6 @@ public class AppConductor implements MovementSensor{
 		this.gpsActivado = false; //Por defecto, el gps no se encuentra activado
 	}
 
-	public SEM getSem() {
-		return sem;
-	}
-
 	public String getNumeroDeCelular() {
 		return this.celular.getNroCelular();
 	}
@@ -26,15 +22,19 @@ public class AppConductor implements MovementSensor{
 		return this.celular;
 	}
 
+	public SEM getSem() {
+		return sem;
+	}
+
 	public Modo getModo() {
 		return modo;
 	}
 
-	public Boolean getGps() {
+	public boolean getGps() {
 		return gpsActivado;
 	}
 
-	private void setGps(Boolean gps) {
+	private void setGps(boolean gps) {
 		this.gpsActivado = gps;
 	}
 	

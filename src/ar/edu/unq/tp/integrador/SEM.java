@@ -36,15 +36,11 @@ public class SEM {
 		return horaFinEstacionamientoMedido;
 	}
 	
-	public Integer getPrecioPorHora() {
+	public int getPrecioPorHora() {
 		//Se obtiene el precio por hora de estacionamiento (actualmente $40.-)
 		return precioPorHora;
 	}
 
-	public int saldoParaElHorario(LocalDateTime horaInicio, LocalDateTime horarioFin) {
-		return (horarioFin.getHour() - horaInicio.getHour()) * precioPorHora;
-	}
-	
 	public List<Compra> getCompras() {
 		return compras;
 	}
@@ -169,7 +165,7 @@ public class SEM {
 		
 		return estacionamientoBuscado.get();
 	}
-	
+
 	public Boolean tieneEstacionamientoVigente(String patente) {
 		Estacionamiento estacionamiento = null;
 		for(Estacionamiento e : this.getEstacionamientos()) {
@@ -180,9 +176,9 @@ public class SEM {
 		return estacionamiento.estaVigente();
 	}
 	
-	public Infraccion generarInfraccion(String patente, Zona zona) {
+	public Infraccion generarInfraccion(String patente, Zona zona, String idInspector) {
 		//Se genera una nueva infracción, registrándola en la lista de infracciones
-		Infraccion nuevaInfraccion = new Infraccion(patente, LocalDateTime.now(), zona);
+		Infraccion nuevaInfraccion = new Infraccion(patente, LocalDateTime.now(), zona, idInspector);
 		this.registrarInfraccion(nuevaInfraccion);
 		return nuevaInfraccion;
 	}

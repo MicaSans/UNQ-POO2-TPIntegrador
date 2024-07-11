@@ -21,5 +21,9 @@ public class Compra {
 		return this.puntoDeVenta;
 	}
 
+	public int getNumeroControl() {
+		return numeroControl;
+	}
+
 }
 
