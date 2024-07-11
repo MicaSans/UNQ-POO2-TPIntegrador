@@ -35,7 +35,7 @@ public abstract class Estacionamiento {
 		this.horaFin = hora;
 	}
 	
-	public Boolean estaVigente() {
+	public boolean estaVigente() {
 		return this.horaFin.isAfter(LocalDateTime.now());
 	}
 	

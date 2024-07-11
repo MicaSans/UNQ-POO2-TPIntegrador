@@ -5,13 +5,13 @@ import java.time.LocalDateTime;
 public class EstacionamientoApp extends Estacionamiento {
 	private Celular celular;
 	
-	public EstacionamientoApp(Celular celular, String patente,LocalDateTime horaInicio) {
+	public EstacionamientoApp(Celular celular, String patente, LocalDateTime horaInicio) {
 		super(patente, horaInicio);
 		this.celular = celular;
 	}
 	
 	@Override
-	public Boolean estaVigente() {
+	public boolean estaVigente() {
 		return this.getHoraFin() == null && this.maxHoraDeFinQuePodriaAbonar().isAfter(LocalDateTime.now());
 	}
 	
