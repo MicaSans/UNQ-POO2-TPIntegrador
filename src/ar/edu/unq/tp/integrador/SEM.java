@@ -142,7 +142,6 @@ public class SEM {
 	 * 
 	 * @celular el número de celular desde el cuál se inicio el estacinamiento
 	 */
-	//TODO: revisar
 	public void finalizarEstacionamiento(String celular) {
 		Estacionamiento estacionamientoApp = buscarEstacionamientoApp(celular);
 		Duration horasEstacionado = Duration.between(estacionamientoApp.getHoraInicio(),
