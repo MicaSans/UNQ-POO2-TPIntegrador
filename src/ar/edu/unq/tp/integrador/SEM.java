@@ -121,7 +121,7 @@ public class SEM {
 		this.alertarFinEstacionamiento();
 	}
 	
-	private Boolean tieneEstacionamientoVigente(String patente) {
+	public Boolean tieneEstacionamientoVigente(String patente) {
 		Estacionamiento estacionamiento = null;
 		for(Estacionamiento e : this.getEstacionamientos()) {
 			if(e.getPatente().equals(patente)) {
