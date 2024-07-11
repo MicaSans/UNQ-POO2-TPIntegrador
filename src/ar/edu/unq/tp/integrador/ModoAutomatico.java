@@ -3,19 +3,17 @@ package ar.edu.unq.tp.integrador;
 public class ModoAutomatico implements Modo {
 
 	@Override
-	public void notificarPosibleInicioDeEstacionamiento(AppConductor app) {
-		//En modo automático no se realiza ninguna acción
+	public void notificarPosibleInicioDeEstacionamiento(AppConductor appConductor) {
+		appConductor.iniciarEstacionamientoSEM();
+		System.out.println("Notificación: Se inicio el estacionamiento de forma automatica.");
 	}
 
 	@Override
-	public void notificarPosibleFinDeEstacionamiento(AppConductor app) {
-		app.finalizarEstacionamiento();
+	public void notificarPosibleFinDeEstacionamiento(AppConductor appConductor) {
+		appConductor.finalizarEstacionamientoSEM();
 	}
 
 	@Override
-	public void activarODesactivarNotificaciones(AppConductor app) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void activarODesactivarNotificaciones(AppConductor app) {}
 
 }

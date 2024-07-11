@@ -3,19 +3,22 @@ package ar.edu.unq.tp.integrador;
 public class ModoManual implements Modo {
 
 	@Override
-	public void notificarPosibleInicioDeEstacionamiento(AppConductor app) {
-		//En modo automático no se realiza ninguna acción
+	public void notificarPosibleInicioDeEstacionamiento(AppConductor appConductor) {
+		if(appConductor.getAlertaDesplazamientoActiva()) {
+			System.out.println("Notificación: debe iniciar el estacionamiento.");
+		}
 	}
 
 	@Override
-	public void notificarPosibleFinDeEstacionamiento(AppConductor app) {
-		app.finalizarEstacionamiento();
+	public void notificarPosibleFinDeEstacionamiento(AppConductor appConductor) {
+		if(appConductor.getAlertaDesplazamientoActiva()) {
+			System.out.println("Notificación: debe finalizar el estacionamiento.");
+		}
 	}
 
 	@Override
-	public void activarODesactivarNotificaciones(AppConductor app) {
-		// TODO Auto-generated method stub
-		
+	public void activarODesactivarNotificaciones(AppConductor appConductor) {
+		appConductor.setAlertaDesplazamientoActiva();
 	}
 
 }

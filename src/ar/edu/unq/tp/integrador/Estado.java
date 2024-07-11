@@ -6,7 +6,7 @@ public abstract class Estado {
 
 	public void walking(AppConductor appConductor) {}
 
-	public void iniciarEstacionamiento(AppConductor appConductor, String patente) {}
+	public void iniciarEstacionamiento(AppConductor appConductor) {}
 
 	public void finalizarEstacionamiento(AppConductor appConductor) {}
 	
