@@ -119,7 +119,7 @@ class SEMTest {
 	
 	@Test
 	void testGetHorarioFin() {
-		assertEquals(LocalTime.of(0, 20), sem.getHoraFinEstacionamientoMedido());
+		assertEquals(LocalTime.of(20, 0), sem.getHoraFinEstacionamientoMedido());
 	}
 	
 	@Test
