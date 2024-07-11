@@ -66,4 +66,15 @@ class InfraccionTest {
 		assertEquals(infraccion.getZona(), otraZona);
 	}
 
+	@Test
+	void testGetIdInspector() {
+		assertEquals(infraccion.getIdInspector(), "8975");
+	}
+	
+	@Test
+	void testSetIdInspector() {
+		infraccion.setIdInspector("3497");
+		
+		assertEquals(infraccion.getIdInspector(), "3497");
+	}
 }
