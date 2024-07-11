@@ -3,24 +3,19 @@ package ar.edu.unq.tp.integrador;
 public class ModoManual implements Modo {
 
 	@Override
-	public void driving(AppConductor appConductor) {
-		//En modo manual no se realiza ninguna acción
+	public void notificarPosibleInicioDeEstacionamiento(AppConductor app) {
+		//En modo automático no se realiza ninguna acción
 	}
 
 	@Override
-	public void walking(AppConductor appConductor) {
-		//En modo manual no se realiza ninguna acción
-	}
-	
-	//TODO: revisar
-	@Override
-	public void iniciarEstacionamiento(AppConductor appConductor, String patente) {
-		appConductor.iniciarEstacionamiento(patente);
+	public void notificarPosibleFinDeEstacionamiento(AppConductor app) {
+		app.finalizarEstacionamiento();
 	}
 
 	@Override
-	public void finalizarEstacionamiento(AppConductor appConductor) {
-		appConductor.getSem().finalizarEstacionamiento(appConductor.getNumeroDeCelular());
+	public void activarODesactivarNotificaciones(AppConductor app) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

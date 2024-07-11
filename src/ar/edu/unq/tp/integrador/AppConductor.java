@@ -1,16 +1,20 @@
 package ar.edu.unq.tp.integrador;
 
-public class AppConductor implements MovementSensor{
+public class AppConductor implements MovementSensor {
 	
 	private SEM sem;
 	private Celular celular;
 	private Modo modo;
+	private Estado estado;
+	private Boolean notificacionesActivas;
 	private Boolean gpsActivado;
 	
 	public AppConductor(SEM sem, Celular celular) {
 		this.sem = sem;
 		this.celular = celular;
 		this.modo = new ModoManual(); //Por defecto, comienza en modo manual
+		this.estado = new EstadoAPie();
+		this.notificacionesActivas = true;
 		this.gpsActivado = false; //Por defecto, el gps no se encuentra activado
 	}
 
@@ -29,6 +33,10 @@ public class AppConductor implements MovementSensor{
 	public Modo getModo() {
 		return modo;
 	}
+	
+	public Estado getEstado() {
+		return this.estado;
+	}
 
 	public boolean getGps() {
 		return gpsActivado;
@@ -42,23 +50,18 @@ public class AppConductor implements MovementSensor{
 		return this.celular.getSaldo();
 	}
 	
-	/*
-	public boolean haySaldoSuficiente() {
-		int creditoNecesario = sem.saldoParaElHorario(LocalDateTime.now(), sem.getHorarioFin());
-		return getCreditoDisponible() >= creditoNecesario;
-	}*/
-	
 	@Override
 	public void driving() {
-		this.getModo().driving(this);
+		this.getEstado().driving(this);
 	}
 
 	@Override
 	public void walking() {
-		this.getModo().walking(this);
+		this.getEstado().walking(this);
 	}
 	
 	public void iniciarEstacionamiento(String patente) {
+		this.estado.iniciarEstacionamiento(this, patente);
 		this.sem.iniciarEstacionamiento(patente, this.getCelular()); 
 	}
 	
@@ -66,6 +69,19 @@ public class AppConductor implements MovementSensor{
 		this.sem.finalizarEstacionamiento(this.getNumeroDeCelular());
 	}
 	
+	public void notificarPosibleInicioDeEstacionamiento() {
+		this.modo.notificarPosibleInicioDeEstacionamiento(this);
+	}
+	
+	public void notificarPosibleFinDeEstacionamiento() {
+		this.modo.notificarPosibleFinDeEstacionamiento(this);
+	}
+	
+	public void activarODesactivarNotificaciones() {
+		this.modo.activarODesactivarNotificaciones(this);
+	}
+	
+	//TODO: revisar
 	public void consultarSaldoDisponible() {
 		System.out.println("Su saldo actual es $" + getCreditoDisponible());
 	}
